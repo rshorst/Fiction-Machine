@@ -4,7 +4,7 @@ Build the book from book/chapters/ into site/:
 
     site/index.html               the book to read online
     site/diagram.html             how the machine works
-    site/fiction-machine-book.pdf the whole book, free to download
+    site/warm-prior.pdf           the whole book, free to download
 
 Needs pandoc, and Chrome or Chromium for the PDF. GitHub runs this after
 every change to the book and publishes site/ with GitHub Pages.
@@ -27,7 +27,7 @@ import config
 REPO = "https://github.com/rshorst/Fiction-Machine"
 BOOK = bt.ROOT / "book"
 SITE = bt.ROOT / "site"
-PDF_NAME = "fiction-machine-book.pdf"
+PDF_NAME = "warm-prior.pdf"
 
 
 def md_to_html(md: str) -> str:
@@ -81,7 +81,7 @@ def build_pdf(chapters, updated) -> bool:
     e = html.escape
     total = sum(c["words"] for c in chapters)
     parts = [
-        '<section class="title"><h1>The Fiction Machine</h1>'
+        '<section class="title"><h1>Warm Prior</h1><p class="sub">Stories from a Fiction Machine</p>'
         f"<p>{len(chapters)} stories made by the Fiction Machine (unslop.), designed by Rachel Horst.</p>"
         f'<p class="small">Edition of {e(long_date(updated))} · {total:,} words · {REPO}</p></section>',
         '<section class="toc"><h2>Contents</h2><ol>'

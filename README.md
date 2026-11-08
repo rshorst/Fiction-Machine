@@ -2,7 +2,7 @@
 
 A multi-agent fiction system designed by Rachel Horst (April 2026). A single seed sentence goes in; a short story comes out, written, annotated, revised and cut by a crew of agents built with [CrewAI](https://www.crewai.com/) on Anthropic's Claude.
 
-**Read the book:** [rshorst.github.io/Fiction-Machine](https://rshorst.github.io/Fiction-Machine/), with a free PDF of every chapter so far.
+**Read the book:** *Warm Prior: Stories from a Fiction Machine*, at [rshorst.github.io/Fiction-Machine](https://rshorst.github.io/Fiction-Machine/), with a free PDF of every chapter so far.
 
 [![Diagram of one run of the Fiction Machine](docs/fiction-machine-diagram.png)](https://rshorst.github.io/Fiction-Machine/diagram.html)
 

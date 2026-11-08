@@ -1,4 +1,4 @@
-<title>The Fiction Machine Book</title>
+<title>Warm Prior</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,6 +34,7 @@ main{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px
 .eyebrow{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .titlepage h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,7vw,4.4rem);line-height:1.02;margin:0;text-wrap:balance;letter-spacing:-.01em}
 .titlepage .lede{font-family:var(--serif);font-size:1.3rem;line-height:1.45;max-width:30rem;margin:0}
+.titlepage .sub{font-family:var(--serif);font-style:italic;font-size:clamp(1.3rem,3vw,1.7rem);margin:-.4rem 0 0;color:var(--muted)}
 .wip{display:inline-block;font-family:var(--mono);font-size:.72rem;color:var(--pencil);border:1px solid currentColor;padding:.1rem .45rem;border-radius:2px;margin-left:.4rem;vertical-align:middle;letter-spacing:0;text-transform:none}
 .toc{list-style:none;margin:0;padding:0}
 .toc li{border-bottom:1px solid var(--rule)}
@@ -95,7 +96,7 @@ main{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px
 @media (prefers-reduced-motion:reduce){.progress{transition:none}}
 </style>
 
-<div class="bar"><div class="bar-in"><a href="#contents">The Fiction Machine</a><span class="where" id="where">Contents</span><a class="dl-mini" href="fiction-machine-book.pdf">PDF</a></div><div class="progress" id="progress"></div></div>
+<div class="bar"><div class="bar-in"><a href="#contents">Warm Prior</a><span class="where" id="where">Contents</span><a class="dl-mini" href="warm-prior.pdf">PDF</a></div><div class="progress" id="progress"></div></div>
 <main><div class="view" id="view"></div></main>
 
 <script id="data" type="application/json">__CHAPTERS__</script>
@@ -109,12 +110,12 @@ function contents(){
   where.textContent = 'Contents';
   view.innerHTML = `
   <header class="titlepage">
-    <div class="eyebrow">Stories from the Fiction Machine (unslop.)</div>
-    <h1>The Fiction Machine<span class="wip">working title</span></h1>
+    <h1>Warm Prior</h1>
+    <p class="sub">Stories from a Fiction Machine</p>
     <p class="lede">Each chapter began as a single sentence. A crew of agents researched it, built its characters from photographs, then drafted, annotated, revised and cut it.</p>
     <div class="eyebrow">${CH.length} chapters · ${total.toLocaleString('en-CA')} words · April 2026 –</div>
     <div class="actions">
-      <a class="btn" href="fiction-machine-book.pdf">Download the book <small>PDF · free</small></a>
+      <a class="btn" href="warm-prior.pdf">Download the book <small>PDF · free</small></a>
       <a class="textlink" href="diagram.html">How the machine works</a>
       <a class="textlink" href="__REPO__">The machine on GitHub</a>
     </div>
