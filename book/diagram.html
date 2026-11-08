@@ -1,271 +1,288 @@
-<title>The Fiction Machine, Drawn</title>
+<title>The Fiction Machine, Patched</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=EB+Garamond:ital@0;1&display=swap">
 <style>
-/* Layout: three columns on one sheet. Left: what agents read (skills, notes). Centre: the run, top to bottom, in three stages. Right: the stores and the outside world. Lines drawn by script between real boxes. */
+/* Layout: a patcher sheet. Label gutter | what agents read | the run | stores. Stages are tinted bands drawn behind the objects; cords are drawn by script from outlets to inlets. Deliberately one look (a patch window), so no dark variant. */
 :root{
-  --paper:#fbfbfa; --ink:#1d1d1b; --muted:#6c6b66; --rule:#dcdbd5; --pencil:#b3261e; --wash:#f1f0ec; --card:#ffffff; --line:#9b9a94;
-  --serif:"EB Garamond","Iowan Old Style",Georgia,serif;
-  --sans:"Public Sans","Helvetica Neue",Arial,sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --top:#2a0d0b; --ink:#2a0d0b; --cream:#f6efe4; --card:#fcf8f1; --muted:#7a6159;
+  --band-run:#e4d5ba; --band-1:#f3ebdf; --band-2:#dfe2e5; --band-3:#eebfae; --head:#8f98a2;
+  --tag:#c4503d; --cord:#2a0d0b; --read:#8a7268;
+  --mono:"Space Mono","IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --serif:"EB Garamond",Georgia,serif;
+  color-scheme:light;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--paper:#161615;--ink:#e9e7e2;--muted:#9c9a93;--rule:#3a3936;--pencil:#ef8a7e;--wash:#1f1f1d;--card:#1b1b1a;--line:#6f6e69;color-scheme:dark}}
-:root[data-theme="dark"]{--paper:#161615;--ink:#e9e7e2;--muted:#9c9a93;--rule:#3a3936;--pencil:#ef8a7e;--wash:#1f1f1d;--card:#1b1b1a;--line:#6f6e69;color-scheme:dark}
-html{background:var(--paper)}
-body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
-.page{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:2.5rem 3rem}
-.head{max-width:72rem;margin:0 auto 1.6rem;display:grid;gap:.6rem}
-.eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.2rem,5vw,3.4rem);line-height:1.05;margin:0;text-wrap:balance}
-.lede{font-family:var(--serif);font-size:1.2rem;max-width:40rem;margin:0}
-.legend{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;font-size:.78rem;color:var(--muted);align-items:center;margin-top:.4rem}
-.legend span{display:inline-flex;align-items:center;gap:.45rem}
-.sw{width:26px;height:0;border-top:1.5px solid var(--ink)}
-.sw.read{border-top:1.5px dashed var(--line)}
-.sw.dep{border-top:1.5px solid var(--pencil)}
-.chip-a{width:14px;height:14px;background:var(--card);border:1.5px solid var(--ink)}
-.chip-f{width:14px;height:14px;border:1px dashed var(--muted)}
-.chip-s{width:14px;height:14px;background:var(--wash);border:1px solid var(--rule)}
-.hint{font-size:.85rem;color:var(--muted)}
-.hint b{color:var(--pencil);font-weight:500}
-.scroller{overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}
-.sheet{position:relative;width:1180px;margin:0 auto;display:grid;grid-template-columns:200px 1fr 210px;gap:0 48px;padding:1.2rem 0 1rem}
-svg#wires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
-.rail{display:flex;flex-direction:column;gap:.55rem;position:relative;z-index:1}
-.rail h3,.stage h3{margin:0 0 .3rem;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500}
-.flow{display:flex;flex-direction:column;gap:1.6rem;position:relative;z-index:1}
-.stage{border-top:1px solid var(--ink);padding-top:.8rem;display:flex;flex-direction:column;gap:.9rem}
-.stage h3 .s{color:var(--pencil);margin-right:.5rem}
-.stage h3 .f{font-family:var(--mono);text-transform:none;letter-spacing:0;margin-left:.5rem}
-.row{display:grid;grid-template-columns:1.25fr 1fr;gap:0 40px;align-items:center}
-.quad{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;position:relative;padding:.9rem .7rem .7rem;border:1px dashed var(--rule)}
-.quad .wall{position:absolute;top:-.6rem;left:.7rem;background:var(--paper);padding:0 .4rem;font-size:.72rem;color:var(--pencil);letter-spacing:.04em}
-.quad .col{display:flex;flex-direction:column;gap:24px}
-.n{all:unset;box-sizing:border-box;display:block;cursor:pointer;position:relative;transition:opacity .15s,border-color .15s}
-.n:focus-visible{outline:2px solid var(--pencil);outline-offset:2px}
-.agent{background:var(--card);border:1.5px solid var(--ink);padding:.55rem .7rem .6rem}
-.agent .nm{font-family:var(--serif);font-size:1.25rem;line-height:1.1}
-.agent .nm small{font-family:var(--sans);font-size:.72rem;color:var(--muted);margin-left:.3rem}
-.agent .do{font-size:.82rem;margin-top:.15rem}
-.agent .cfg{font-family:var(--mono);font-size:.68rem;color:var(--muted);margin-top:.35rem}
-.file{border:1px dashed var(--muted);padding:.4rem .6rem;background:var(--paper)}
-.file .p{font-family:var(--mono);font-size:.76rem;overflow-wrap:break-word}
-.file .w{font-size:.75rem;color:var(--muted);margin-top:.1rem}
-.step{background:var(--paper);border:1px solid var(--rule);padding:.45rem .65rem}
-.step .p{font-family:var(--mono);font-size:.76rem}
-.step .w{font-size:.75rem;color:var(--muted)}
-.src{background:var(--paper);border:1px solid var(--rule);border-left:3px solid var(--pencil);padding:.4rem .6rem}
-.src .p{font-family:var(--mono);font-size:.74rem}
-.src .w{font-size:.72rem;color:var(--muted);margin-top:.1rem}
-.store{background:var(--wash);border:1px solid var(--rule);padding:.55rem .7rem}
-.store .p{font-weight:600;font-size:.82rem}
-.store .w{font-size:.74rem;color:var(--muted);margin-top:.15rem}
-.store.web{background:transparent;border-style:dotted}
-.seed{border:1.5px solid var(--pencil);background:var(--card);padding:.7rem .9rem}
-.seed .p{font-family:var(--serif);font-style:italic;font-size:1.15rem;line-height:1.35}
-.seed .w{font-size:.74rem;color:var(--muted);margin-top:.3rem}
-.end{border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);padding:.6rem .8rem}
-.end .p{font-family:var(--serif);font-size:1.15rem}
-.end .w{font-size:.74rem;opacity:.75}
-.gap{height:.2rem}
+html{background:var(--cream)}
+body{background:var(--cream);color:var(--ink);font-family:var(--mono);font-size:13px;line-height:1.4}
+::selection{background:var(--tag);color:var(--cream)}
+/* top bar */
+.topbar{background:var(--top);color:var(--cream);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:.9rem}
+.topbar-in{max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;gap:.6rem 2rem;align-items:center;justify-content:space-between}
+.topbar small{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+.topbar h1{margin:0;font-family:var(--mono);font-weight:700;font-size:clamp(1.05rem,2.6vw,1.5rem);letter-spacing:.12em;text-transform:uppercase}
+.sr{border:2px solid var(--cream);background:var(--cream);color:var(--ink);padding:.35rem .9rem;font-weight:700;letter-spacing:.18em;font-size:clamp(.95rem,2.2vw,1.35rem);text-transform:uppercase;white-space:nowrap}
+/* inspector */
+.inspect{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:var(--head);color:var(--cream);border-bottom:2px solid var(--ink);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:.65rem}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--head)}
+.inspect-in{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:auto 1fr;gap:.2rem 1.2rem;align-items:baseline;min-height:2.6rem}
+.inspect .k{font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;border-bottom:2px solid var(--cream);padding-bottom:1px;white-space:nowrap}
+.inspect .v{font-size:.82rem;min-width:0}
+.inspect .v b{letter-spacing:.04em}
+.inspect .v .cfg{display:block;opacity:.8;font-size:.72rem;margin-top:.15rem}
+/* sheet */
+.page{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:1.6rem 3rem}
+.legend{max-width:1240px;margin:0 auto 1.2rem;display:flex;flex-wrap:wrap;gap:.5rem 1.6rem;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:.5rem}
+.lg-box{width:18px;height:12px;border:1.5px solid var(--ink);background:var(--card)}
+.lg-dark{width:18px;height:12px;background:var(--ink)}
+.lg-cord{width:28px;border-top:3px solid var(--cord)}
+.lg-read{width:28px;border-top:1.5px dashed var(--read)}
+.lg-tag{background:var(--tag);color:var(--cream);font-size:.6rem;padding:1px 5px;letter-spacing:.04em}
+.scroller{overflow-x:auto;max-width:100%}
+.sheet{position:relative;width:1240px;margin:0 auto;display:grid;grid-template-columns:96px 196px 1fr 210px;column-gap:34px;padding-block:3rem 2rem}
+#bands,#wires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+#bands{z-index:0}#wires{z-index:2}
+.colhead{position:absolute;top:.6rem;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border-bottom:2px solid var(--ink);padding-bottom:1px;z-index:3}
+.gutter{grid-column:1}
+.rail{display:flex;flex-direction:column;gap:12px;position:relative;z-index:3}
+.rail.l{grid-column:2}.rail.r{grid-column:4}
+.rail .gap{height:16px}
+.flow{grid-column:3;display:flex;flex-direction:column;gap:40px;position:relative;z-index:3}
+.stage{display:flex;flex-direction:column;gap:30px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:0 60px;align-items:center}
+.row>*{justify-self:start}
+.row>:last-child{justify-self:end}
+.quad{display:grid;grid-template-columns:repeat(4,auto);justify-content:space-between;gap:34px 18px;position:relative;padding:22px 16px 34px;border:1.5px dashed var(--ink)}
+.quad .col{display:flex;flex-direction:column;gap:34px;align-items:flex-start}
+.quad .cap{position:absolute;right:10px;bottom:8px;font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+/* objects */
+.n{all:unset;box-sizing:border-box;position:relative;cursor:pointer;display:inline-flex;flex-direction:column;gap:2px;
+  padding:7px 11px 7px;font-family:var(--mono);font-size:13.5px;line-height:1.25;color:var(--ink);max-width:100%;
+  background:
+    linear-gradient(var(--ink),var(--ink)) left 4px top -1px/12px 4px no-repeat,
+    linear-gradient(var(--ink),var(--ink)) right 4px top -1px/12px 4px no-repeat,
+    linear-gradient(var(--ink),var(--ink)) left 4px bottom -1px/12px 4px no-repeat,
+    linear-gradient(var(--ink),var(--ink)) right 4px bottom -1px/12px 4px no-repeat,
+    var(--card);
+  border:1.5px solid var(--ink);box-shadow:2px 2px 0 rgba(42,13,11,.18);transition:opacity .15s,box-shadow .15s,transform .15s}
+.n:focus-visible{outline:2px solid var(--tag);outline-offset:3px}
+.n .x{font-size:10.5px;color:var(--muted);letter-spacing:.02em}
+.n.agent{font-weight:700;font-size:14.5px;padding:8px 13px;border-width:2px}
+.n.file{font-size:12px}
+.n.dark{background:
+    linear-gradient(var(--cream),var(--cream)) left 4px top -1px/12px 4px no-repeat,
+    linear-gradient(var(--cream),var(--cream)) left 4px bottom -1px/12px 4px no-repeat,
+    var(--ink);color:var(--cream);font-weight:700}
+.n.dark .x{color:#d9c6b6}
+.n.src{font-size:11.5px;font-weight:400;padding:6px 9px}
+.n.end{background:var(--tag);color:var(--cream);border-color:var(--ink);font-weight:700}
+.n.seed{font-family:var(--serif);font-style:italic;font-weight:400;font-size:17px;line-height:1.25;max-width:330px}
+.n.seed .x{font-family:var(--mono);font-style:normal}
+.n:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 rgba(42,13,11,.25)}
+.static{cursor:default}
 /* tracing */
-.sheet.tracing .n{opacity:.22}
-.sheet.tracing .n.lit{opacity:1}
-.sheet.tracing .n.sel{opacity:1;border-color:var(--pencil)}
-path.e{fill:none;stroke-width:1.4;transition:opacity .15s,stroke-width .15s}
-path.e.flow{stroke:var(--ink);opacity:.75}
-path.e.read{stroke:var(--line);stroke-dasharray:4 4;opacity:.45}
-path.e.store{stroke:var(--pencil);opacity:.6}
-.sheet.tracing path.e{opacity:.05}
-.sheet.tracing path.e.on{opacity:1;stroke-width:2}
-.note{max-width:72rem;margin:1.6rem auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1.2rem 2rem;border-top:1px solid var(--rule);padding-top:1.2rem}
-.note div{min-width:0}
-.note h4{margin:0 0 .25rem;font-family:var(--serif);font-weight:500;font-size:1.05rem}
-.note p{margin:0;font-size:.85rem;color:var(--muted)}
-@media (max-width:900px){
+.sheet.tracing .n{opacity:.2}
+.sheet.tracing .n.lit,.sheet.tracing .n.sel{opacity:1}
+.sheet.tracing .n.sel{box-shadow:0 0 0 3px var(--tag)}
+path.c{fill:none;transition:opacity .15s}
+path.c.flow{stroke:var(--cord);stroke-width:2.6}
+path.c.read{stroke:var(--read);stroke-width:1.2;stroke-dasharray:3 4;opacity:.55}
+path.c.store{stroke:var(--cord);stroke-width:1.8;stroke-dasharray:7 4}
+.sheet.tracing path.c{opacity:.06}
+.sheet.tracing path.c.on{opacity:1}
+.sheet.tracing path.c.read.on{stroke:var(--tag);stroke-width:1.8}
+g.tag{transition:opacity .15s}
+.sheet.tracing g.tag{opacity:.15}
+.notes{max-width:1240px;margin:2rem auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:1.2rem 2.4rem;border-top:2px solid var(--ink);padding-top:1.2rem}
+.notes h2{margin:0 0 .3rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+.notes p{margin:0;font-family:var(--serif);font-size:1.05rem;line-height:1.45;color:#4a2f29}
+.foot{max-width:1240px;margin:1.6rem auto 0;font-size:.7rem;letter-spacing:.06em;color:var(--muted)}
+.foot a{color:inherit}
+@media (max-width:980px){
   .scroller{overflow-x:visible}
-  .sheet{width:auto;grid-template-columns:1fr;gap:2.4rem;padding-top:.4rem}
-  .flow{order:1}
-  .sheet>.rail:first-of-type{order:2}
-  .sheet>.rail:last-of-type{order:3}
-  .rail{display:grid;grid-template-columns:repeat(auto-fill,minmax(10.5rem,1fr));gap:.55rem}
-  .rail h3,.rail .gap{grid-column:1 / -1}
+  .sheet{width:auto;grid-template-columns:1fr;row-gap:2.6rem;padding-top:2.4rem}
+  .gutter,.colhead{display:none}
+  .flow{grid-column:1;order:1}
+  .rail.l{grid-column:1;order:2}.rail.r{grid-column:1;order:3}
+  .rail{display:flex;flex-direction:row;flex-wrap:wrap;gap:12px}
+  .rail .rh{flex-basis:100%;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border-bottom:2px solid var(--ink);align-self:flex-start;margin-bottom:.2rem}
   .rail .gap{display:none}
-  .row{grid-template-columns:1fr;gap:22px}
-  .quad{grid-template-columns:1fr 1fr;gap:26px 12px;padding-top:1.4rem}
-  .quad .col{gap:22px}
-  .sheet:not(.tracing) path.e.read,.sheet:not(.tracing) path.e.store{display:none}
-  .hint .wide{display:none}
+  .row{grid-template-columns:1fr;gap:26px}
+  .row>:last-child{justify-self:start;margin-left:2.2rem}
+  .quad{grid-template-columns:1fr 1fr;justify-content:stretch}
+  .sheet:not(.tracing) path.c.read,.sheet:not(.tracing) path.c.store,.sheet:not(.tracing) g.tag.read,.sheet:not(.tracing) g.tag.store{display:none}
 }
-@media (max-width:420px){.quad{grid-template-columns:1fr}}
-@media (prefers-reduced-motion:reduce){.n,path.e{transition:none}}
+@media (min-width:981px){.rail .rh{display:none}}
+@media (max-width:440px){.quad{grid-template-columns:1fr}.n.seed{font-size:15.5px}}
+@media (prefers-reduced-motion:reduce){.n,path.c,g.tag{transition:none}}
 </style>
 
+<header class="topbar"><div class="topbar-in">
+  <div><small>unslop. · designed by Rachel Horst · April 2026</small><h1>The Fiction Machine</h1></div>
+  <small>9 agent roles · 3 stages · 3 drafts · 1 chapter</small>
+  <div class="sr">Seed / Chapter</div>
+</div></header>
+
+<div class="inspect" aria-live="polite"><div class="inspect-in">
+  <span class="k" id="ik">Inspect</span>
+  <span class="v" id="iv">Tap any object to read what it does and light up its cords. Tap it again, or the background, to clear.</span>
+</div></div>
+
 <div class="page">
-  <header class="head">
-    <div class="eyebrow">The Fiction Machine (unslop.) · one run, from seed to chapter</div>
-    <h1>The Fiction Machine, drawn</h1>
-    <p class="lede">Nine agent roles, three stages, five annotations, three drafts. Every box is something in the code: an agent, a file it writes, a store it reaches into, or a text it reads before it works.</p>
-    <div class="legend">
-      <span><i class="chip-a"></i>Agent</span>
-      <span><i class="chip-f"></i>File written to <code>vault/stories/&lt;slug&gt;/</code></span>
-      <span><i class="chip-s"></i>Store</span>
-      <span><i class="sw"></i>Passes on</span>
-      <span><i class="sw read"></i>Reads</span>
-      <span><i class="sw dep"></i>Deposits into a store</span>
-    </div>
-    <p class="hint"><b>Tap any box</b> to trace what it reads and writes. Tap again, or tap the background, to clear.<span class="narrow-note"> On a phone, the reading lines appear when you tap a box.</span></p>
-  </header>
+  <div class="legend">
+    <span><i class="lg-dark"></i>Source</span>
+    <span><i class="lg-box"></i>Agent or file</span>
+    <span><i class="lg-cord"></i>Passes on</span>
+    <span><i class="lg-read"></i>Reads</span>
+    <span><i class="lg-tag">rule</i>How it is held to it</span>
+  </div>
 
   <div class="scroller">
   <div class="sheet" id="sheet">
+    <svg id="bands" aria-hidden="true"></svg>
     <svg id="wires" aria-hidden="true"></svg>
+    <span class="colhead" style="left:130px">Read first</span>
+    <span class="colhead" id="ch-run">The run</span>
+    <span class="colhead" style="right:0">Stores · outside</span>
+    <div class="gutter"></div>
 
-    <!-- LEFT: what the agents read -->
-    <aside class="rail" aria-label="Texts the agents read">
-      <h3>Read before working</h3>
-      <button class="n src" id="sk-horst"><div class="p">skills/horst-prose.md</div><div class="w">Six principles from Rachel Horst's prose</div></button>
-      <button class="n src" id="sk-brief"><div class="p">skills/unslop-creative-brief.md</div><div class="w">The creative commitments</div></button>
-      <button class="n src" id="sk-voice"><div class="p">skills/voice.md</div><div class="w">Reading the corpus without copying it</div></button>
-      <button class="n src" id="sk-reader"><div class="p">skills/reader.md</div><div class="w">The reader as the measure</div></button>
-      <button class="n src" id="sk-title"><div class="p">skills/title.md</div><div class="w">Deciding a working title</div></button>
+    <aside class="rail l" aria-label="Texts the agents read">
+      <span class="rh">Read first</span>
+      <button class="n dark src" id="sk-horst" data-d="Six principles of attention drawn from Rachel Horst's prose. Read by Richard and Guha.">horst-prose</button>
+      <button class="n dark src" id="sk-brief" data-d="The creative brief: the commitments every story is held to. Read by Richard and Sean.">creative-brief</button>
+      <button class="n dark src" id="sk-voice" data-d="How to read the voices corpus without copying it: register, not plot. Read by Richard, Sean, Guha, Material and Sue Pen.">voice</button>
+      <button class="n dark src" id="sk-reader" data-d="The reader as the measure of a passage. Read by Richard, Guha and Sue Pen.">reader</button>
+      <button class="n dark src" id="sk-title" data-d="How to decide a working title. Read by Richard and Guha.">title</button>
       <div class="gap"></div>
-      <h3>Questions and shapes</h3>
-      <button class="n src" id="q-miranda"><div class="p">vault/agents/miranda-questions.md</div><div class="w">Miranda's standing questions</div></button>
-      <button class="n src" id="q-frances"><div class="p">vault/agents/frances-questions.md</div><div class="w">The 20-question character interview</div></button>
-      <button class="n src" id="arcs"><div class="p">vault/theory/reagan_arcs.md</div><div class="w">Six emotional arc shapes (Reagan et al. 2016)</div></button>
+      <button class="n dark src" id="q-miranda" data-d="Miranda's standing questions, asked of every paper she keeps.">miranda-questions</button>
+      <button class="n dark src" id="q-frances" data-d="Frances's twenty-question interview for building a person from a face.">frances-questions</button>
+      <button class="n dark src" id="arcs" data-d="The six emotional arc shapes of stories (Reagan et al., 2016). Richard writes one plot per shape; Sean checks the draft against its arc.">reagan_arcs</button>
     </aside>
 
-    <!-- CENTRE: the run -->
-    <div class="flow">
-      <div class="row">
-        <button class="n seed" id="seed"><div class="p">“A woman builds an automated creative process…”</div><div class="w">One seed sentence goes in</div></button>
-        <button class="n step" id="runfull"><div class="p">run_full.py</div><div class="w">Haiku suggests a slug · story folder made · seed.md written</div></button>
+    <div class="flow" id="flow">
+      <div class="stage" data-band="run" data-label="Once per run">
+        <div class="row">
+          <button class="n dark seed" id="seed" data-d="One seed sentence goes in. Nothing else about the story is given.">“A woman builds an automated creative process…”<span class="x">seed</span></button>
+          <button class="n" id="runfull" data-d="run_full.py. Haiku suggests a short name for the story, the story folder is made, and the three stages run in order.">run_full<span class="x">slug · folder · stages</span></button>
+        </div>
       </div>
 
-      <section class="stage" aria-label="Stage 1">
-        <h3><span class="s">Stage 1</span>Theory, people, plot, first draft<span class="f">run_to_draft_01.py</span></h3>
+      <div class="stage" data-band="1" data-label="Stage 1 · theory · people · plot">
         <div class="row">
-          <button class="n agent" id="a-miranda1"><div class="nm">Miranda</div><div class="do">Finds three papers; answers her questions about each</div><div class="cfg">Opus · memory on · max_iter 40</div></button>
-          <button class="n file" id="f-deposits"><div class="p">theory_deposits/ ×3</div><div class="w">What she found and kept</div></button>
+          <button class="n agent" id="a-miranda1" data-d="Miranda searches arXiv and Semantic Scholar and keeps three papers, answering her questions about each." data-c="Opus · memory on · up to 40 steps">Miranda</button>
+          <button class="n file" id="f-deposits" data-d="theory_deposits/: what Miranda found and kept, three files.">theory_deposits ×3</button>
         </div>
         <div class="row">
-          <button class="n agent" id="a-frances1"><div class="nm">Frances <small>×3, separately</small></div><div class="do">Picks a face, looks at it, builds a person from it. No character knows the others exist.</div><div class="cfg">Opus · memory off · max_iter 100</div></button>
-          <button class="n file" id="f-chars"><div class="p">characters/&lt;name&gt;.md ×3</div><div class="w">Face, history, desires, contradiction, blind spot</div></button>
+          <button class="n agent" id="a-frances1" data-d="Frances picks a face, looks at it, and builds a person from it, three times in separate runs. No character knows the others exist." data-c="Opus · no memory · up to 100 steps">Frances</button>
+          <button class="n file" id="f-chars" data-d="characters/: three profiles with face, history, desires, contradiction and blind spot.">characters ×3</button>
         </div>
         <div class="row">
-          <button class="n agent" id="a-frances2"><div class="nm">Frances <small>4th pass</small></div><div class="do">Reads the three profiles and discovers how they relate</div><div class="cfg">Opus · memory off</div></button>
-          <button class="n file" id="f-rel"><div class="p">characters/relations.md</div><div class="w">Who knows what about whom; where desire sits</div></button>
+          <button class="n agent" id="a-frances2" data-d="A fourth Frances pass reads the three profiles and discovers how the people relate." data-c="Opus · no memory">Frances · relations</button>
+          <button class="n file" id="f-rel" data-d="characters/relations.md: who knows what about whom, and where desire sits.">relations</button>
         </div>
         <div class="row">
-          <button class="n step" id="checkpoint"><div class="p">Checkpoint</div><div class="w">Seed, deposits, characters and faces copied aside</div></button>
-          <button class="n file" id="f-cp"><div class="p">_checkpoint/</div><div class="w">restore_checkpoint.py rolls back to here</div></button>
+          <button class="n" id="checkpoint" data-d="Checkpoint: seed, deposits, characters and faces are copied aside. restore_checkpoint.py rolls a story back to here.">checkpoint</button>
+          <button class="n file" id="f-cp" data-d="_checkpoint/: the copy that a failed or unwanted run can return to.">_checkpoint</button>
         </div>
         <div class="row">
-          <button class="n agent" id="a-richard1"><div class="nm">Richard <small>plots</small></div><div class="do">Six plots, one per arc shape, each with its derivation</div><div class="cfg">Opus · memory off · max_iter 100</div></button>
-          <button class="n file" id="f-plots"><div class="p">plots/plots.md</div><div class="w">Six plots in note form</div></button>
+          <button class="n agent" id="a-richard1" data-d="Richard writes six plots, one for each arc shape, each with how he got there." data-c="Opus · no memory · up to 100 steps">Richard · plots</button>
+          <button class="n file" id="f-plots" data-d="plots/plots.md: six plots in note form.">plots ×6</button>
         </div>
         <div class="row">
-          <button class="n agent" id="a-curator"><div class="nm">Curator</div><div class="do">Chooses one plot and writes Richard feedback</div><div class="cfg">Opus · memory on</div></button>
-          <button class="n file" id="f-sel"><div class="p">plots/curator_selection.md</div><div class="w">The chosen plot</div></button>
+          <button class="n agent" id="a-curator" data-d="The Curator chooses one of the six plots and writes Richard feedback." data-c="Opus · memory on">Curator</button>
+          <button class="n file" id="f-sel" data-d="plots/curator_selection.md: the chosen plot.">selection</button>
         </div>
         <div class="row">
-          <button class="n agent" id="a-richard2"><div class="nm">Richard <small>draft</small></div><div class="do">Writes the first draft; one reach into the voices corpus for register</div><div class="cfg">Opus · memory off · max_iter 100</div></button>
-          <button class="n file" id="f-d1"><div class="p">drafts/draft_01.md</div><div class="w">First draft</div></button>
+          <button class="n agent" id="a-richard2" data-d="Richard writes the first draft, reaching once into the voices corpus for register." data-c="Opus · no memory · up to 100 steps">Richard · draft</button>
+          <button class="n file" id="f-d1" data-d="drafts/draft_01.md: the first draft.">draft_01</button>
         </div>
-      </section>
+      </div>
 
-      <section class="stage" aria-label="Stage 2">
-        <h3><span class="s">Stage 2</span>Four readings, one letter, a revision<span class="f">run_to_draft_02.py</span></h3>
+      <div class="stage" data-band="2" data-label="Stage 2 · four readings · a letter">
         <div class="quad">
-          <span class="wall">The annotators do not see each other's work</span>
+          <span class="cap">Kept apart</span>
           <div class="col">
-            <button class="n agent" id="a-suepen"><div class="nm">Sue Pen <small>2 passes</small></div><div class="do">Language: passages, echoes, density</div><div class="cfg">Opus · memory on</div></button>
-            <button class="n file" id="f-asp"><div class="p">annotations/<wbr>sue_pen.md</div></button>
+            <button class="n agent" id="a-suepen" data-d="Sue Pen reads for language, in two passes: passages, echoes, density." data-c="Opus · memory on">Sue Pen</button>
+            <button class="n file" id="f-asp" data-d="annotations/sue_pen.md">sue_pen</button>
           </div>
           <div class="col">
-            <button class="n agent" id="a-material"><div class="nm">Material <small>2 passes</small></div><div class="do">The physical world: claims, timing, named objects</div><div class="cfg">Opus · memory off</div></button>
-            <button class="n file" id="f-amat"><div class="p">annotations/<wbr>material.md</div></button>
+            <button class="n agent" id="a-material" data-d="Material reads for the physical world, in two passes: claims, timing, named objects." data-c="Opus · no memory">Material</button>
+            <button class="n file" id="f-amat" data-d="annotations/material.md">material</button>
           </div>
           <div class="col">
-            <button class="n agent" id="a-frances3"><div class="nm">Frances <small>reading</small></div><div class="do">Are these the people she built?</div><div class="cfg">Opus · memory off</div></button>
-            <button class="n file" id="f-afr"><div class="p">annotations/<wbr>frances.md</div></button>
+            <button class="n agent" id="a-frances3" data-d="Frances reads the draft and asks whether these are the people she built." data-c="Opus · no memory">Frances</button>
+            <button class="n file" id="f-afr" data-d="annotations/frances.md">frances</button>
           </div>
           <div class="col">
-            <button class="n agent" id="a-miranda2"><div class="nm">Miranda <small>reading</small></div><div class="do">A theoretical pass over the draft</div><div class="cfg">Opus · memory on · max_iter 40</div></button>
-            <button class="n file" id="f-ami"><div class="p">annotations/<wbr>miranda.md</div></button>
+            <button class="n agent" id="a-miranda2" data-d="Miranda makes a theoretical pass over the draft." data-c="Opus · memory on · up to 40 steps">Miranda</button>
+            <button class="n file" id="f-ami" data-d="annotations/miranda.md">miranda</button>
           </div>
         </div>
         <div class="row">
-          <button class="n agent" id="a-sean"><div class="nm">Sean</div><div class="do">Reads the draft and all four annotations; verdicts on character, plot, language, setting, digitality, and the arc</div><div class="cfg">Opus · memory on</div></button>
-          <button class="n file" id="f-letter"><div class="p">letters/sean_letter.md</div><div class="w">The editorial letter</div></button>
+          <button class="n agent" id="a-sean" data-d="Sean reads the draft and all four annotations, and gives verdicts on character, plot, language, setting, digitality and the arc." data-c="Opus · memory on">Sean</button>
+          <button class="n file" id="f-letter" data-d="letters/sean_letter.md: the editorial letter.">sean_letter</button>
         </div>
         <div class="row">
-          <button class="n agent" id="a-richard3"><div class="nm">Richard <small>revision</small></div><div class="do">Revises from the letter and from Frances's reading directly</div><div class="cfg">Opus · memory off · max_iter 100</div></button>
-          <button class="n file" id="f-d2"><div class="p">drafts/draft_02.md</div><div class="w">Second draft</div></button>
+          <button class="n agent" id="a-richard3" data-d="Richard revises from Sean's letter and from Frances's reading, at a distance from his own draft." data-c="Opus · no memory · up to 100 steps">Richard · revision</button>
+          <button class="n file" id="f-d2" data-d="drafts/draft_02.md: the second draft.">draft_02</button>
         </div>
-      </section>
+      </div>
 
-      <section class="stage" aria-label="Stage 3">
-        <h3><span class="s">Stage 3</span>The cut<span class="f">run_to_draft_03.py</span></h3>
+      <div class="stage" data-band="3" data-label="Stage 3 · the cut">
         <div class="row">
-          <button class="n agent" id="a-guha"><div class="nm">Guha</div><div class="do">Reads draft 02 cold, with no notes, and subtracts. Over 4,500 words the target is 85% of the draft.</div><div class="cfg">Opus · memory on</div></button>
-          <button class="n file" id="f-d3"><div class="p">drafts/draft_03.md</div><div class="w">The finished story, with its note</div></button>
+          <button class="n agent" id="a-guha" data-d="Guha reads draft 02 cold, with no notes or letters, and subtracts. Over 4,500 words the target is 85% of the draft." data-c="Opus · memory on">Guha</button>
+          <button class="n file" id="f-d3" data-d="drafts/draft_03.md: the finished story, ending with the machine's note (system, designer, model, seed).">draft_03</button>
         </div>
         <div class="row">
-          <button class="n step" id="trim"><div class="p">Word count check</div><div class="w">Counted in Python; if Guha missed the target, one trim pass</div></button>
-          <button class="n file" id="f-guha"><div class="p">letters/guha_note.md</div><div class="w">What snagged, what was cut, the title</div></button>
+          <button class="n" id="trim" data-d="The word count is checked in Python, not by the model. If Guha missed the target, he gets one trim pass.">count words</button>
+          <button class="n file" id="f-guha" data-d="letters/guha_note.md: what snagged, what was cut, and the title.">guha_note</button>
         </div>
         <div class="row">
-          <button class="n step" id="pdf"><div class="p">generate_pdf.py</div><div class="w">pandoc, then Chrome; EB Garamond</div></button>
-          <button class="n end" id="f-pdf"><div class="p">drafts/&lt;slug&gt;.pdf</div><div class="w">and a chapter for the book</div></button>
+          <button class="n" id="pdf" data-d="generate_pdf.py: pandoc makes the page, Chrome prints it, set in EB Garamond.">generate_pdf</button>
+          <button class="n end" id="f-pdf" data-d="The story as a PDF, and a chapter for Warm Prior: Stories from a Fiction Machine.">chapter</button>
         </div>
-      </section>
+      </div>
     </div>
 
-    <!-- RIGHT: stores and the outside -->
-    <aside class="rail" aria-label="Stores and outside sources">
-      <h3>Outside</h3>
-      <button class="n store web" id="web"><div class="p">arXiv · Semantic Scholar</div><div class="w">Open papers Miranda searches</div></button>
-      <button class="n store web" id="unsplash"><div class="p">Unsplash</div><div class="w">Portraits, pulled once by pull_faces.py</div></button>
+    <aside class="rail r" aria-label="Stores and outside sources">
+      <span class="rh">Stores · outside</span>
+      <button class="n dark src" id="web" data-d="Open papers on arXiv and Semantic Scholar, searched by Miranda during the run.">arXiv · S2</button>
+      <button class="n dark src" id="unsplash" data-d="Unsplash portraits, pulled once by pull_faces.py with your own key. Credited by Frances.">Unsplash</button>
       <div class="gap"></div>
-      <h3>Stores</h3>
-      <button class="n store" id="db-papers"><div class="p">miranda_papers</div><div class="w">ChromaDB · theory, growing with every run</div></button>
-      <button class="n store" id="pdfs"><div class="p">miranda_papers/ (PDFs)</div><div class="w">Papers Miranda downloads</div></button>
-      <button class="n store" id="faces"><div class="p">faces/images/</div><div class="w">The face library; used.json keeps a face to one character</div></button>
-      <button class="n store" id="db-voices"><div class="p">voices</div><div class="w">ChromaDB · Rachel Horst's writing; sets register, never plot</div></button>
-      <button class="n store" id="writing"><div class="p">vault/writing/</div><div class="w">Source texts, indexed by ingest.py</div></button>
+      <button class="n dark src" id="db-papers" data-d="ChromaDB collection miranda_papers: theory that grows with every run as Miranda deposits what she finds.">miranda_papers</button>
+      <button class="n dark src" id="pdfs" data-d="miranda_papers/: the PDFs Miranda downloads.">paper PDFs</button>
+      <button class="n dark src" id="faces" data-d="faces/images/: the face library. used.json keeps each face to one character per story.">faces</button>
+      <button class="n dark src" id="db-voices" data-d="ChromaDB collection voices: Rachel Horst's writing. Sets register, never plot.">voices</button>
+      <button class="n dark src" id="writing" data-d="vault/writing/: the source texts, indexed by ingest.py.">vault/writing</button>
       <div class="gap"></div>
-      <h3>Every agent</h3>
-      <div class="store" style="cursor:default"><div class="w">Claude Opus through CrewAI · no delegation · no cache · 16,000-token replies · compatibility patch for Claude 4.x</div></div>
+      <span class="n static" style="font-size:11px;font-weight:400" data-d="Every agent runs on Claude Opus through CrewAI, with no delegation and no cache, 16,000-token replies, and a compatibility patch for Claude 4.x.">every agent:<span class="x">Opus · CrewAI · no delegation</span></span>
     </aside>
   </div>
   </div>
 
-  <div class="note">
-    <div><h4>Isolation is the method</h4><p>Frances builds each character in a separate run with no memory, so the relations are found afterwards, not planned. The four annotators never see each other's notes, so Sean has real disagreements to weigh.</p></div>
-    <div><h4>Distance is deliberate</h4><p>Richard and Material run without memory: Richard revises at a distance from his own draft, and Material checks each claim cold. Guha reads draft 02 with no annotations or letters at all.</p></div>
-    <div><h4>Every stage can resume</h4><p>Each step checks whether its file already exists and skips it if so. A failed run picks up where it stopped, or rolls back to the checkpoint after Frances.</p></div>
+  <div class="notes">
+    <div><h2>Isolation</h2><p>Frances builds each character in a separate run with no memory, so the relations are found afterwards, not planned. The four annotators never see each other's notes, so Sean has real disagreements to weigh.</p></div>
+    <div><h2>Distance</h2><p>Richard and Material run without memory: Richard revises at a distance from his own draft, and Material checks each claim cold. Guha reads draft 02 with no annotations or letters at all.</p></div>
+    <div><h2>Resume</h2><p>Each step checks whether its file already exists and skips it if so. A failed run picks up where it stopped, or rolls back to the checkpoint after Frances.</p></div>
   </div>
+  <p class="foot">Drawn from the code of the Fiction Machine (unslop.) · <a href="./">Warm Prior: Stories from a Fiction Machine</a> · <a href="https://github.com/rshorst/Fiction-Machine">GitHub</a></p>
 </div>
 
 <script>
 const E = [
-  // main flow
   ['seed','runfull','flow'],['runfull','a-miranda1','flow'],
-  ['a-miranda1','f-deposits','flow'],['a-frances1','f-chars','flow'],['f-chars','a-frances2','flow'],['a-frances2','f-rel','flow'],
+  ['a-miranda1','f-deposits','flow'],['a-frances1','f-chars','flow','× 3'],['f-chars','a-frances2','flow'],['a-frances2','f-rel','flow'],
   ['f-rel','checkpoint','flow'],['checkpoint','f-cp','flow'],
-  ['f-deposits','a-richard1','read'],['f-chars','a-richard1','read'],['a-richard1','f-plots','flow'],
-  ['f-plots','a-curator','flow'],['a-curator','f-sel','flow'],['f-sel','a-richard2','flow'],['f-chars','a-richard2','read'],['a-richard2','f-d1','flow'],
+  ['f-deposits','a-richard1','read'],['f-chars','a-richard1','read'],['a-richard1','f-plots','flow','× 6'],
+  ['f-plots','a-curator','flow'],['a-curator','f-sel','flow','1 of 6'],['f-sel','a-richard2','flow'],['f-chars','a-richard2','read'],['a-richard2','f-d1','flow'],
   ['f-d1','a-suepen','flow'],['f-d1','a-material','flow'],['f-d1','a-frances3','flow'],['f-d1','a-miranda2','flow'],
   ['f-chars','a-frances3','read'],['f-rel','a-frances3','read'],
   ['a-suepen','f-asp','flow'],['a-material','f-amat','flow'],['a-frances3','f-afr','flow'],['a-miranda2','f-ami','flow'],
   ['f-asp','a-sean','flow'],['f-amat','a-sean','flow'],['f-afr','a-sean','flow'],['f-ami','a-sean','flow'],['f-d1','a-sean','read'],
   ['a-sean','f-letter','flow'],['f-letter','a-richard3','flow'],['f-afr','a-richard3','read'],['f-d1','a-richard3','read'],['a-richard3','f-d2','flow'],
-  ['f-d2','a-guha','flow'],['a-guha','f-d3','flow'],['a-guha','f-guha','flow'],['f-d3','trim','flow'],['trim','a-guha','read'],['f-d3','pdf','flow'],['pdf','f-pdf','flow'],
-  // skills and notes
+  ['f-d2','a-guha','flow','cold'],['a-guha','f-d3','flow'],['a-guha','f-guha','flow'],['f-d3','trim','flow'],['trim','a-guha','read','> 85%'],['f-d3','pdf','flow'],['pdf','f-pdf','flow'],
   ['sk-horst','a-richard1','read'],['sk-horst','a-richard2','read'],['sk-horst','a-richard3','read'],['sk-horst','a-guha','read'],
   ['sk-brief','a-richard1','read'],['sk-brief','a-richard2','read'],['sk-brief','a-richard3','read'],['sk-brief','a-sean','read'],
   ['sk-voice','a-richard2','read'],['sk-voice','a-richard3','read'],['sk-voice','a-sean','read'],['sk-voice','a-guha','read'],['sk-voice','a-material','read'],['sk-voice','a-suepen','read'],
@@ -273,61 +290,106 @@ const E = [
   ['sk-title','a-richard2','read'],['sk-title','a-guha','read'],
   ['q-miranda','a-miranda1','read'],['q-frances','a-frances1','read'],
   ['arcs','a-richard1','read'],['arcs','a-sean','read'],
-  // stores and outside
-  ['web','a-miranda1','read'],['a-miranda1','db-papers','store'],['a-miranda1','pdfs','store'],['db-papers','a-miranda1','read'],
+  ['web','a-miranda1','read'],['a-miranda1','db-papers','store','deposit'],['a-miranda1','pdfs','store'],['db-papers','a-miranda1','read'],
   ['db-papers','a-richard1','read'],
   ['unsplash','faces','store'],['faces','a-frances1','read'],
-  ['writing','db-voices','store'],['db-voices','a-richard2','read'],['db-voices','a-richard3','read'],['db-voices','a-suepen','read'],
+  ['writing','db-voices','store','ingest'],['db-voices','a-richard2','read'],['db-voices','a-richard3','read'],['db-voices','a-suepen','read'],
 ];
-const sheet = document.getElementById('sheet'), svg = document.getElementById('wires');
+const BANDS = {run:'var(--band-run)', 1:'var(--band-1)', 2:'var(--band-2)', 3:'var(--band-3)'};
+const sheet = document.getElementById('sheet'), wires = document.getElementById('wires'), bands = document.getElementById('bands');
 const NS = 'http://www.w3.org/2000/svg';
-let paths = [];
+let paths = [], tags = [], sel = null;
 
-function box(id){
-  const el = document.getElementById(id), s = sheet.getBoundingClientRect(), r = el.getBoundingClientRect();
-  return {l:r.left-s.left, r:r.right-s.left, t:r.top-s.top, b:r.bottom-s.top, cx:(r.left+r.right)/2-s.left, cy:(r.top+r.bottom)/2-s.top};
+function rect(el){ const s = sheet.getBoundingClientRect(), r = el.getBoundingClientRect();
+  return {l:r.left-s.left, r:r.right-s.left, t:r.top-s.top, b:r.bottom-s.top, w:r.width, h:r.height, cx:(r.left+r.right)/2-s.left, cy:(r.top+r.bottom)/2-s.top}; }
+function mk(tag, attrs, parent){ const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; }
+
+function drawBands(){
+  bands.innerHTML = '';
+  const S = sheet.getBoundingClientRect(), narrow = innerWidth <= 980;
+  document.querySelectorAll('.stage').forEach(st => {
+    const r = rect(st), pad = 16;
+    mk('rect', {x:0, y:r.t-pad, width:S.width, height:r.h+pad*2, fill:BANDS[st.dataset.band]}, bands);
+    if (!narrow){
+      const words = st.dataset.label.toUpperCase().split(' · ');
+      words.forEach((w,i) => mk('text', {x:4, y:r.t+4+i*13, 'font-size':9.5, 'font-weight':700, 'letter-spacing':1.2, fill:'#2a0d0b', 'font-family':'Space Mono, monospace'}, bands).textContent = w);
+    } else {
+      mk('text', {x:4, y:r.t-pad+12, 'font-size':9.5, 'font-weight':700, 'letter-spacing':1.2, fill:'#2a0d0b', 'font-family':'Space Mono, monospace'}, bands).textContent = st.dataset.label.toUpperCase();
+    }
+  });
+  const run = document.getElementById('ch-run'), f = rect(document.getElementById('flow'));
+  run.style.left = (f.l) + 'px';
 }
-function route(a,b){
-  const A = box(a), B = box(b);
-  const dx = B.cx - A.cx, dy = B.cy - A.cy;
-  const sideways = (A.r < B.l - 10) || (B.r < A.l - 10);
-  if (sideways){
-    const x1 = dx > 0 ? A.r : A.l, x2 = dx > 0 ? B.l - 3 : B.r + 3;
-    const k = Math.max(40, Math.abs(x2 - x1) * .45) * (dx > 0 ? 1 : -1);
-    return `M${x1},${A.cy} C${x1+k},${A.cy} ${x2-k},${B.cy} ${x2},${B.cy}`;
-  }
-  const down = dy >= 0;
-  const y1 = down ? A.b : A.t, y2 = down ? B.t - 3 : B.b + 3;
-  const k = Math.max(18, Math.abs(y2 - y1) * .5) * (down ? 1 : -1);
-  return `M${A.cx},${y1} C${A.cx},${y1+k} ${B.cx},${y2-k} ${B.cx},${y2}`;
-}
+
 function draw(){
-  svg.innerHTML = `<defs>
-    <marker id="m-flow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="var(--ink)" stroke-width="1.6"/></marker>
-    <marker id="m-read" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="var(--line)" stroke-width="1.6"/></marker>
-    <marker id="m-store" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="var(--pencil)" stroke-width="1.6"/></marker></defs>`;
-  paths = E.map(([a,b,k]) => {
-    const p = document.createElementNS(NS,'path');
-    p.setAttribute('d', route(a,b)); p.setAttribute('class','e '+k); p.setAttribute('marker-end',`url(#m-${k})`);
-    p.dataset.a = a; p.dataset.b = b; svg.appendChild(p); return p;
+  drawBands();
+  wires.innerHTML = '';
+  const R = {}; document.querySelectorAll('.n[id]').forEach(n => R[n.id] = rect(n));
+  // which edges leave/arrive on which face, so tabs spread along each edge
+  const sideOf = (a,b) => (R[a].r < R[b].l - 8 || R[b].r < R[a].l - 8);
+  const outs = {}, ins = {};
+  E.forEach((e,i) => { const [a,b] = e; if (!sideOf(a,b) && R[b].t > R[a].b - 4){ (outs[a] ||= []).push(i); (ins[b] ||= []).push(i); } });
+  const slot = (list, id, i, other, key) => { const L = list[id]; L.sort((p,q) => R[E[p][other]].cx - R[E[q][other]].cx);
+    const k = L.indexOf(i), n = L.length, r = R[id], span = Math.max(0, r.w - 24);
+    return r.l + 12 + (n > 1 ? span * k / (n - 1) : 0); };
+  paths = []; tags = [];
+  E.forEach((e,i) => {
+    const [a,b,kind,label] = e, A = R[a], B = R[b];
+    let d;
+    if (sideOf(a,b)){
+      const right = B.cx > A.cx;
+      const x1 = right ? A.r : A.l, x2 = right ? B.l - 2 : B.r + 2;
+      const k = Math.max(36, Math.abs(x2-x1) * .42) * (right ? 1 : -1);
+      d = `M${x1},${A.cy} C${x1+k},${A.cy} ${x2-k},${B.cy} ${x2},${B.cy}`;
+    } else if (B.t > A.b - 4){
+      const x1 = slot(outs, a, i, 1), x2 = slot(ins, b, i, 0), y1 = A.b, y2 = B.t - 2;
+      const k = Math.max(22, (y2 - y1) * .5);
+      d = `M${x1},${y1} C${x1},${y1+k} ${x2},${y2-k} ${x2},${y2}`;
+    } else {
+      const W = sheet.getBoundingClientRect().width;
+      if (Math.max(A.r, B.r) > W - 120){
+        const x1 = A.l, x2 = B.l - 2, out = Math.min(A.l, B.l) - 26;
+        d = `M${x1},${A.cy} C${out},${A.cy} ${out},${B.cy} ${x2},${B.cy}`;
+      } else {
+        const x1 = A.r, x2 = B.r + 2, out = Math.max(A.r, B.r) + 46;
+        d = `M${x1},${A.cy} C${out},${A.cy} ${out},${B.cy} ${x2},${B.cy}`;
+      }
+    }
+    const p = mk('path', {d, class:'c '+kind}, wires); p.dataset.a = a; p.dataset.b = b; paths.push(p);
+    if (label){
+      const L = p.getTotalLength(), pt = p.getPointAtLength(L * (kind === 'store' ? .82 : .5));
+      const g = mk('g', {class:'tag '+kind}, wires); g.dataset.a = a; g.dataset.b = b;
+      const t = mk('text', {x:pt.x, y:pt.y+3.4, 'text-anchor':'middle', 'font-size':9.5, 'font-weight':700, fill:'#f6efe4', 'font-family':'Space Mono, monospace'}, g);
+      t.textContent = label;
+      const w = label.length * 6.2 + 10;
+      g.insertBefore(mk('rect', {x:pt.x - w/2, y:pt.y - 7.5, width:w, height:15, fill:'#c4503d', rx:1}, g), t);
+      tags.push(g);
+    }
   });
   if (sel) trace(sel, true);
 }
-let sel = null;
+
+const ik = document.getElementById('ik'), iv = document.getElementById('iv');
+const IK0 = ik.textContent, IV0 = iv.innerHTML;
+function esc(s){ return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
 function trace(id, keep){
   if (!keep && sel === id){ clear(); return; }
   sel = id; sheet.classList.add('tracing');
+  const el = document.getElementById(id);
   sheet.querySelectorAll('.n').forEach(n => n.classList.remove('lit','sel'));
-  document.getElementById(id).classList.add('sel');
-  paths.forEach(p => {
-    const on = p.dataset.a === id || p.dataset.b === id;
-    p.classList.toggle('on', on);
-    if (on){ document.getElementById(p.dataset.a).classList.add('lit'); document.getElementById(p.dataset.b).classList.add('lit'); }
-  });
+  el.classList.add('sel');
+  paths.forEach(p => { const on = p.dataset.a === id || p.dataset.b === id; p.classList.toggle('on', on);
+    if (on){ document.getElementById(p.dataset.a).classList.add('lit'); document.getElementById(p.dataset.b).classList.add('lit'); } });
+  tags.forEach(g => g.style.opacity = (g.dataset.a === id || g.dataset.b === id) ? 1 : '');
+  const name = (el.childNodes[0].textContent || id).trim();
+  ik.textContent = name.length > 26 ? 'Seed' : name;
+  iv.innerHTML = esc(el.dataset.d || '') + (el.dataset.c ? `<span class="cfg">${esc(el.dataset.c)}</span>` : '');
 }
-function clear(){ sel = null; sheet.classList.remove('tracing'); sheet.querySelectorAll('.n').forEach(n => n.classList.remove('lit','sel')); paths.forEach(p => p.classList.remove('on')); }
-sheet.addEventListener('click', e => { const n = e.target.closest('.n'); if (n && n.id) trace(n.id); else clear(); });
-addEventListener('resize', draw);
+function clear(){ sel = null; sheet.classList.remove('tracing'); sheet.querySelectorAll('.n').forEach(n => n.classList.remove('lit','sel'));
+  paths.forEach(p => p.classList.remove('on')); tags.forEach(g => g.style.opacity = ''); ik.textContent = IK0; iv.innerHTML = IV0; }
+sheet.addEventListener('click', e => { const n = e.target.closest('.n[id]'); if (n) trace(n.id); else clear(); });
+document.querySelector('.static').addEventListener('click', e => { e.stopPropagation(); clear(); ik.textContent = 'Every agent'; iv.textContent = e.currentTarget.dataset.d; });
+let raf; addEventListener('resize', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(draw); });
 (document.fonts ? document.fonts.ready : Promise.resolve()).then(draw);
 draw();
 </script>
