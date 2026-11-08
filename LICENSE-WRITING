@@ -14,6 +14,9 @@ This covers:
   annotations, letters, PDFs), the character archive, the process notes and
   the bibliographies
 - ARCHITECTURE.md and README.md
+- the book in book/: chapters 1 to 5 are by Rachel Horst; every later chapter
+  is © the person named as "run_by" in it, who shared it under this same
+  licence when they submitted it
 
 The code (Python files and requirements.txt) is under the MIT licence; see
 LICENSE.

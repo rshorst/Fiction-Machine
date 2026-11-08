@@ -1,0 +1,24 @@
+name: Check chapter
+
+# Runs on every pull request that adds to the book. Read-only: it never
+# merges anything. Rachel reads the chapter and merges it herself.
+on:
+  pull_request:
+    paths:
+      - "book/chapters/**"
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Check the chapter
+        run: python validate_chapter.py --base origin/${{ github.base_ref }}

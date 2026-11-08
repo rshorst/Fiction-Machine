@@ -30,3 +30,6 @@ vault/annotations/
 .claude/
 vault/.obsidian/workspace*.json
 *.pptx
+
+# The book website, built by build_book.py and published by GitHub
+site/

@@ -2,7 +2,11 @@
 
 A multi-agent fiction system designed by Rachel Horst (April 2026). A single seed sentence goes in; a short story comes out, written, annotated, revised and cut by a crew of agents built with [CrewAI](https://www.crewai.com/) on Anthropic's Claude.
 
-How it works, stage by stage, is in [ARCHITECTURE.md](ARCHITECTURE.md). The agents' instructions are in `agents/`, `skills/` and `vault/agents/`. Stories the machine has made are in `vault/stories/` and at [Unslop-stories](https://github.com/rshorst/Unslop-stories).
+**Read the book:** [rshorst.github.io/Fiction-Machine](https://rshorst.github.io/Fiction-Machine/), with a free PDF of every chapter so far.
+
+[![Diagram of one run of the Fiction Machine](docs/fiction-machine-diagram.png)](https://rshorst.github.io/Fiction-Machine/diagram.html)
+
+The [interactive diagram](https://rshorst.github.io/Fiction-Machine/diagram.html) shows one run from seed to chapter: every agent, file, store and skill. Tap a box to trace what it reads and writes. How it works, stage by stage, is in [ARCHITECTURE.md](ARCHITECTURE.md). The agents' instructions are in `agents/`, `skills/` and `vault/agents/`. Stories the machine has made are in `vault/stories/` and at [Unslop-stories](https://github.com/rshorst/Unslop-stories).
 
 ## What it costs
 
@@ -78,6 +82,18 @@ All optional, in `.env` (see `.env.example`):
 | `UNSLOP_MODEL` | The agents' model. Default `anthropic/claude-opus-4-7`. |
 | `CHROME_PATH` | Chrome or Chromium for the PDF, if it isn't found automatically. |
 
+## Add your story to the book
+
+The book collects stories made with the machine. Each chapter is the final story and a short note: who ran it, the seed, the date and the model.
+
+```bash
+python submit_chapter.py creative_meter --name "Your Name"
+```
+
+This turns `vault/stories/creative_meter/drafts/draft_03.md` into `book/chapters/<title>.md` under your name and sends it in as a pull request. It uses the [GitHub CLI](https://cli.github.com/) if you have it signed in; otherwise it tells you how to upload the file on the GitHub website. Only the final story and its note are sent; your drafts, annotations and letters stay with you.
+
+An automatic check makes sure the pull request adds one chapter and nothing else. Rachel Horst reads every chapter before adding it. Once it's added, the website and the PDF rebuild themselves. Chapters are shared under CC BY-NC 4.0.
+
 ## Running stages separately
 
 ```bash
@@ -85,6 +101,7 @@ python new_story.py --seed "..."          # set up a story folder without runnin
 python run_to_draft_01.py <slug>          # theory, characters, plots, first draft
 python run_to_draft_02.py <slug>          # annotations, editorial letter, revision
 python run_to_draft_03.py <slug>          # the editorial cut
+python build_book.py                      # build the book website and PDF into site/ (needs pandoc and Chrome)
 ```
 
 ## Licence

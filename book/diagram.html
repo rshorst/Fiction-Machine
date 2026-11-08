@@ -1,0 +1,317 @@
+<title>The Fiction Machine, Drawn</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: three columns on one sheet. Left: what agents read (skills, notes). Centre: the run, top to bottom, in three stages. Right: the stores and the outside world. Lines drawn by script between real boxes. */
+:root{
+  --paper:#fbfbfa; --ink:#1d1d1b; --muted:#6c6b66; --rule:#dcdbd5; --pencil:#b3261e; --wash:#f1f0ec; --card:#ffffff; --line:#9b9a94;
+  --serif:"EB Garamond","Iowan Old Style",Georgia,serif;
+  --sans:"Public Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--paper:#161615;--ink:#e9e7e2;--muted:#9c9a93;--rule:#3a3936;--pencil:#ef8a7e;--wash:#1f1f1d;--card:#1b1b1a;--line:#6f6e69;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#161615;--ink:#e9e7e2;--muted:#9c9a93;--rule:#3a3936;--pencil:#ef8a7e;--wash:#1f1f1d;--card:#1b1b1a;--line:#6f6e69;color-scheme:dark}
+html{background:var(--paper)}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+.page{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:2.5rem 3rem}
+.head{max-width:72rem;margin:0 auto 1.6rem;display:grid;gap:.6rem}
+.eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.2rem,5vw,3.4rem);line-height:1.05;margin:0;text-wrap:balance}
+.lede{font-family:var(--serif);font-size:1.2rem;max-width:40rem;margin:0}
+.legend{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;font-size:.78rem;color:var(--muted);align-items:center;margin-top:.4rem}
+.legend span{display:inline-flex;align-items:center;gap:.45rem}
+.sw{width:26px;height:0;border-top:1.5px solid var(--ink)}
+.sw.read{border-top:1.5px dashed var(--line)}
+.sw.dep{border-top:1.5px solid var(--pencil)}
+.chip-a{width:14px;height:14px;background:var(--card);border:1.5px solid var(--ink)}
+.chip-f{width:14px;height:14px;border:1px dashed var(--muted)}
+.chip-s{width:14px;height:14px;background:var(--wash);border:1px solid var(--rule)}
+.hint{font-size:.85rem;color:var(--muted)}
+.hint b{color:var(--pencil);font-weight:500}
+.scroller{overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}
+.sheet{position:relative;width:1180px;margin:0 auto;display:grid;grid-template-columns:200px 1fr 210px;gap:0 48px;padding:1.2rem 0 1rem}
+svg#wires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.rail{display:flex;flex-direction:column;gap:.55rem;position:relative;z-index:1}
+.rail h3,.stage h3{margin:0 0 .3rem;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.flow{display:flex;flex-direction:column;gap:1.6rem;position:relative;z-index:1}
+.stage{border-top:1px solid var(--ink);padding-top:.8rem;display:flex;flex-direction:column;gap:.9rem}
+.stage h3 .s{color:var(--pencil);margin-right:.5rem}
+.stage h3 .f{font-family:var(--mono);text-transform:none;letter-spacing:0;margin-left:.5rem}
+.row{display:grid;grid-template-columns:1.25fr 1fr;gap:0 40px;align-items:center}
+.quad{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;position:relative;padding:.9rem .7rem .7rem;border:1px dashed var(--rule)}
+.quad .wall{position:absolute;top:-.6rem;left:.7rem;background:var(--paper);padding:0 .4rem;font-size:.72rem;color:var(--pencil);letter-spacing:.04em}
+.quad .col{display:flex;flex-direction:column;gap:24px}
+.n{all:unset;box-sizing:border-box;display:block;cursor:pointer;position:relative;transition:opacity .15s,border-color .15s}
+.n:focus-visible{outline:2px solid var(--pencil);outline-offset:2px}
+.agent{background:var(--card);border:1.5px solid var(--ink);padding:.55rem .7rem .6rem}
+.agent .nm{font-family:var(--serif);font-size:1.25rem;line-height:1.1}
+.agent .nm small{font-family:var(--sans);font-size:.72rem;color:var(--muted);margin-left:.3rem}
+.agent .do{font-size:.82rem;margin-top:.15rem}
+.agent .cfg{font-family:var(--mono);font-size:.68rem;color:var(--muted);margin-top:.35rem}
+.file{border:1px dashed var(--muted);padding:.4rem .6rem;background:var(--paper)}
+.file .p{font-family:var(--mono);font-size:.76rem;overflow-wrap:break-word}
+.file .w{font-size:.75rem;color:var(--muted);margin-top:.1rem}
+.step{background:var(--paper);border:1px solid var(--rule);padding:.45rem .65rem}
+.step .p{font-family:var(--mono);font-size:.76rem}
+.step .w{font-size:.75rem;color:var(--muted)}
+.src{background:var(--paper);border:1px solid var(--rule);border-left:3px solid var(--pencil);padding:.4rem .6rem}
+.src .p{font-family:var(--mono);font-size:.74rem}
+.src .w{font-size:.72rem;color:var(--muted);margin-top:.1rem}
+.store{background:var(--wash);border:1px solid var(--rule);padding:.55rem .7rem}
+.store .p{font-weight:600;font-size:.82rem}
+.store .w{font-size:.74rem;color:var(--muted);margin-top:.15rem}
+.store.web{background:transparent;border-style:dotted}
+.seed{border:1.5px solid var(--pencil);background:var(--card);padding:.7rem .9rem}
+.seed .p{font-family:var(--serif);font-style:italic;font-size:1.15rem;line-height:1.35}
+.seed .w{font-size:.74rem;color:var(--muted);margin-top:.3rem}
+.end{border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);padding:.6rem .8rem}
+.end .p{font-family:var(--serif);font-size:1.15rem}
+.end .w{font-size:.74rem;opacity:.75}
+.gap{height:.2rem}
+/* tracing */
+.sheet.tracing .n{opacity:.22}
+.sheet.tracing .n.lit{opacity:1}
+.sheet.tracing .n.sel{opacity:1;border-color:var(--pencil)}
+path.e{fill:none;stroke-width:1.4;transition:opacity .15s,stroke-width .15s}
+path.e.flow{stroke:var(--ink);opacity:.75}
+path.e.read{stroke:var(--line);stroke-dasharray:4 4;opacity:.45}
+path.e.store{stroke:var(--pencil);opacity:.6}
+.sheet.tracing path.e{opacity:.05}
+.sheet.tracing path.e.on{opacity:1;stroke-width:2}
+.note{max-width:72rem;margin:1.6rem auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1.2rem 2rem;border-top:1px solid var(--rule);padding-top:1.2rem}
+.note div{min-width:0}
+.note h4{margin:0 0 .25rem;font-family:var(--serif);font-weight:500;font-size:1.05rem}
+.note p{margin:0;font-size:.85rem;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.n,path.e{transition:none}}
+</style>
+
+<div class="page">
+  <header class="head">
+    <div class="eyebrow">The Fiction Machine (unslop.) · one run, from seed to chapter</div>
+    <h1>The Fiction Machine, drawn</h1>
+    <p class="lede">Nine agent roles, three stages, five annotations, three drafts. Every box is something in the code: an agent, a file it writes, a store it reaches into, or a text it reads before it works.</p>
+    <div class="legend">
+      <span><i class="chip-a"></i>Agent</span>
+      <span><i class="chip-f"></i>File written to <code>vault/stories/&lt;slug&gt;/</code></span>
+      <span><i class="chip-s"></i>Store</span>
+      <span><i class="sw"></i>Passes on</span>
+      <span><i class="sw read"></i>Reads</span>
+      <span><i class="sw dep"></i>Deposits into a store</span>
+    </div>
+    <p class="hint"><b>Tap any box</b> to trace what it reads and writes. Tap again, or tap the background, to clear. On a phone, scroll the sheet sideways.</p>
+  </header>
+
+  <div class="scroller">
+  <div class="sheet" id="sheet">
+    <svg id="wires" aria-hidden="true"></svg>
+
+    <!-- LEFT: what the agents read -->
+    <aside class="rail" aria-label="Texts the agents read">
+      <h3>Read before working</h3>
+      <button class="n src" id="sk-horst"><div class="p">skills/horst-prose.md</div><div class="w">Six principles from Rachel Horst's prose</div></button>
+      <button class="n src" id="sk-brief"><div class="p">skills/unslop-creative-brief.md</div><div class="w">The creative commitments</div></button>
+      <button class="n src" id="sk-voice"><div class="p">skills/voice.md</div><div class="w">Reading the corpus without copying it</div></button>
+      <button class="n src" id="sk-reader"><div class="p">skills/reader.md</div><div class="w">The reader as the measure</div></button>
+      <button class="n src" id="sk-title"><div class="p">skills/title.md</div><div class="w">Deciding a working title</div></button>
+      <div class="gap"></div>
+      <h3>Questions and shapes</h3>
+      <button class="n src" id="q-miranda"><div class="p">vault/agents/miranda-questions.md</div><div class="w">Miranda's standing questions</div></button>
+      <button class="n src" id="q-frances"><div class="p">vault/agents/frances-questions.md</div><div class="w">The 20-question character interview</div></button>
+      <button class="n src" id="arcs"><div class="p">vault/theory/reagan_arcs.md</div><div class="w">Six emotional arc shapes (Reagan et al. 2016)</div></button>
+    </aside>
+
+    <!-- CENTRE: the run -->
+    <div class="flow">
+      <div class="row">
+        <button class="n seed" id="seed"><div class="p">“A woman builds an automated creative process…”</div><div class="w">One seed sentence goes in</div></button>
+        <button class="n step" id="runfull"><div class="p">run_full.py</div><div class="w">Haiku suggests a slug · story folder made · seed.md written</div></button>
+      </div>
+
+      <section class="stage" aria-label="Stage 1">
+        <h3><span class="s">Stage 1</span>Theory, people, plot, first draft<span class="f">run_to_draft_01.py</span></h3>
+        <div class="row">
+          <button class="n agent" id="a-miranda1"><div class="nm">Miranda</div><div class="do">Finds three papers; answers her questions about each</div><div class="cfg">Opus · memory on · max_iter 40</div></button>
+          <button class="n file" id="f-deposits"><div class="p">theory_deposits/ ×3</div><div class="w">What she found and kept</div></button>
+        </div>
+        <div class="row">
+          <button class="n agent" id="a-frances1"><div class="nm">Frances <small>×3, separately</small></div><div class="do">Picks a face, looks at it, builds a person from it. No character knows the others exist.</div><div class="cfg">Opus · memory off · max_iter 100</div></button>
+          <button class="n file" id="f-chars"><div class="p">characters/&lt;name&gt;.md ×3</div><div class="w">Face, history, desires, contradiction, blind spot</div></button>
+        </div>
+        <div class="row">
+          <button class="n agent" id="a-frances2"><div class="nm">Frances <small>4th pass</small></div><div class="do">Reads the three profiles and discovers how they relate</div><div class="cfg">Opus · memory off</div></button>
+          <button class="n file" id="f-rel"><div class="p">characters/relations.md</div><div class="w">Who knows what about whom; where desire sits</div></button>
+        </div>
+        <div class="row">
+          <button class="n step" id="checkpoint"><div class="p">Checkpoint</div><div class="w">Seed, deposits, characters and faces copied aside</div></button>
+          <button class="n file" id="f-cp"><div class="p">_checkpoint/</div><div class="w">restore_checkpoint.py rolls back to here</div></button>
+        </div>
+        <div class="row">
+          <button class="n agent" id="a-richard1"><div class="nm">Richard <small>plots</small></div><div class="do">Six plots, one per arc shape, each with its derivation</div><div class="cfg">Opus · memory off · max_iter 100</div></button>
+          <button class="n file" id="f-plots"><div class="p">plots/plots.md</div><div class="w">Six plots in note form</div></button>
+        </div>
+        <div class="row">
+          <button class="n agent" id="a-curator"><div class="nm">Curator</div><div class="do">Chooses one plot and writes Richard feedback</div><div class="cfg">Opus · memory on</div></button>
+          <button class="n file" id="f-sel"><div class="p">plots/curator_selection.md</div><div class="w">The chosen plot</div></button>
+        </div>
+        <div class="row">
+          <button class="n agent" id="a-richard2"><div class="nm">Richard <small>draft</small></div><div class="do">Writes the first draft; one reach into the voices corpus for register</div><div class="cfg">Opus · memory off · max_iter 100</div></button>
+          <button class="n file" id="f-d1"><div class="p">drafts/draft_01.md</div><div class="w">First draft</div></button>
+        </div>
+      </section>
+
+      <section class="stage" aria-label="Stage 2">
+        <h3><span class="s">Stage 2</span>Four readings, one letter, a revision<span class="f">run_to_draft_02.py</span></h3>
+        <div class="quad">
+          <span class="wall">The annotators do not see each other's work</span>
+          <div class="col">
+            <button class="n agent" id="a-suepen"><div class="nm">Sue Pen <small>2 passes</small></div><div class="do">Language: passages, echoes, density</div><div class="cfg">Opus · memory on</div></button>
+            <button class="n file" id="f-asp"><div class="p">annotations/<wbr>sue_pen.md</div></button>
+          </div>
+          <div class="col">
+            <button class="n agent" id="a-material"><div class="nm">Material <small>2 passes</small></div><div class="do">The physical world: claims, timing, named objects</div><div class="cfg">Opus · memory off</div></button>
+            <button class="n file" id="f-amat"><div class="p">annotations/<wbr>material.md</div></button>
+          </div>
+          <div class="col">
+            <button class="n agent" id="a-frances3"><div class="nm">Frances <small>reading</small></div><div class="do">Are these the people she built?</div><div class="cfg">Opus · memory off</div></button>
+            <button class="n file" id="f-afr"><div class="p">annotations/<wbr>frances.md</div></button>
+          </div>
+          <div class="col">
+            <button class="n agent" id="a-miranda2"><div class="nm">Miranda <small>reading</small></div><div class="do">A theoretical pass over the draft</div><div class="cfg">Opus · memory on · max_iter 40</div></button>
+            <button class="n file" id="f-ami"><div class="p">annotations/<wbr>miranda.md</div></button>
+          </div>
+        </div>
+        <div class="row">
+          <button class="n agent" id="a-sean"><div class="nm">Sean</div><div class="do">Reads the draft and all four annotations; verdicts on character, plot, language, setting, digitality, and the arc</div><div class="cfg">Opus · memory on</div></button>
+          <button class="n file" id="f-letter"><div class="p">letters/sean_letter.md</div><div class="w">The editorial letter</div></button>
+        </div>
+        <div class="row">
+          <button class="n agent" id="a-richard3"><div class="nm">Richard <small>revision</small></div><div class="do">Revises from the letter and from Frances's reading directly</div><div class="cfg">Opus · memory off · max_iter 100</div></button>
+          <button class="n file" id="f-d2"><div class="p">drafts/draft_02.md</div><div class="w">Second draft</div></button>
+        </div>
+      </section>
+
+      <section class="stage" aria-label="Stage 3">
+        <h3><span class="s">Stage 3</span>The cut<span class="f">run_to_draft_03.py</span></h3>
+        <div class="row">
+          <button class="n agent" id="a-guha"><div class="nm">Guha</div><div class="do">Reads draft 02 cold, with no notes, and subtracts. Over 4,500 words the target is 85% of the draft.</div><div class="cfg">Opus · memory on</div></button>
+          <button class="n file" id="f-d3"><div class="p">drafts/draft_03.md</div><div class="w">The finished story, with its note</div></button>
+        </div>
+        <div class="row">
+          <button class="n step" id="trim"><div class="p">Word count check</div><div class="w">Counted in Python; if Guha missed the target, one trim pass</div></button>
+          <button class="n file" id="f-guha"><div class="p">letters/guha_note.md</div><div class="w">What snagged, what was cut, the title</div></button>
+        </div>
+        <div class="row">
+          <button class="n step" id="pdf"><div class="p">generate_pdf.py</div><div class="w">pandoc, then Chrome; EB Garamond</div></button>
+          <button class="n end" id="f-pdf"><div class="p">drafts/&lt;slug&gt;.pdf</div><div class="w">and a chapter for the book</div></button>
+        </div>
+      </section>
+    </div>
+
+    <!-- RIGHT: stores and the outside -->
+    <aside class="rail" aria-label="Stores and outside sources">
+      <h3>Outside</h3>
+      <button class="n store web" id="web"><div class="p">arXiv · Semantic Scholar</div><div class="w">Open papers Miranda searches</div></button>
+      <button class="n store web" id="unsplash"><div class="p">Unsplash</div><div class="w">Portraits, pulled once by pull_faces.py</div></button>
+      <div class="gap"></div>
+      <h3>Stores</h3>
+      <button class="n store" id="db-papers"><div class="p">miranda_papers</div><div class="w">ChromaDB · theory, growing with every run</div></button>
+      <button class="n store" id="pdfs"><div class="p">miranda_papers/ (PDFs)</div><div class="w">Papers Miranda downloads</div></button>
+      <button class="n store" id="faces"><div class="p">faces/images/</div><div class="w">The face library; used.json keeps a face to one character</div></button>
+      <button class="n store" id="db-voices"><div class="p">voices</div><div class="w">ChromaDB · Rachel Horst's writing; sets register, never plot</div></button>
+      <button class="n store" id="writing"><div class="p">vault/writing/</div><div class="w">Source texts, indexed by ingest.py</div></button>
+      <div class="gap"></div>
+      <h3>Every agent</h3>
+      <div class="store" style="cursor:default"><div class="w">Claude Opus through CrewAI · no delegation · no cache · 16,000-token replies · compatibility patch for Claude 4.x</div></div>
+    </aside>
+  </div>
+  </div>
+
+  <div class="note">
+    <div><h4>Isolation is the method</h4><p>Frances builds each character in a separate run with no memory, so the relations are found afterwards, not planned. The four annotators never see each other's notes, so Sean has real disagreements to weigh.</p></div>
+    <div><h4>Distance is deliberate</h4><p>Richard and Material run without memory: Richard revises at a distance from his own draft, and Material checks each claim cold. Guha reads draft 02 with no annotations or letters at all.</p></div>
+    <div><h4>Every stage can resume</h4><p>Each step checks whether its file already exists and skips it if so. A failed run picks up where it stopped, or rolls back to the checkpoint after Frances.</p></div>
+  </div>
+</div>
+
+<script>
+const E = [
+  // main flow
+  ['seed','runfull','flow'],['runfull','a-miranda1','flow'],
+  ['a-miranda1','f-deposits','flow'],['a-frances1','f-chars','flow'],['f-chars','a-frances2','flow'],['a-frances2','f-rel','flow'],
+  ['f-rel','checkpoint','flow'],['checkpoint','f-cp','flow'],
+  ['f-deposits','a-richard1','read'],['f-chars','a-richard1','read'],['a-richard1','f-plots','flow'],
+  ['f-plots','a-curator','flow'],['a-curator','f-sel','flow'],['f-sel','a-richard2','flow'],['f-chars','a-richard2','read'],['a-richard2','f-d1','flow'],
+  ['f-d1','a-suepen','flow'],['f-d1','a-material','flow'],['f-d1','a-frances3','flow'],['f-d1','a-miranda2','flow'],
+  ['f-chars','a-frances3','read'],['f-rel','a-frances3','read'],
+  ['a-suepen','f-asp','flow'],['a-material','f-amat','flow'],['a-frances3','f-afr','flow'],['a-miranda2','f-ami','flow'],
+  ['f-asp','a-sean','flow'],['f-amat','a-sean','flow'],['f-afr','a-sean','flow'],['f-ami','a-sean','flow'],['f-d1','a-sean','read'],
+  ['a-sean','f-letter','flow'],['f-letter','a-richard3','flow'],['f-afr','a-richard3','read'],['f-d1','a-richard3','read'],['a-richard3','f-d2','flow'],
+  ['f-d2','a-guha','flow'],['a-guha','f-d3','flow'],['a-guha','f-guha','flow'],['f-d3','trim','flow'],['trim','a-guha','read'],['f-d3','pdf','flow'],['pdf','f-pdf','flow'],
+  // skills and notes
+  ['sk-horst','a-richard1','read'],['sk-horst','a-richard2','read'],['sk-horst','a-richard3','read'],['sk-horst','a-guha','read'],
+  ['sk-brief','a-richard1','read'],['sk-brief','a-richard2','read'],['sk-brief','a-richard3','read'],['sk-brief','a-sean','read'],
+  ['sk-voice','a-richard2','read'],['sk-voice','a-richard3','read'],['sk-voice','a-sean','read'],['sk-voice','a-guha','read'],['sk-voice','a-material','read'],['sk-voice','a-suepen','read'],
+  ['sk-reader','a-richard2','read'],['sk-reader','a-richard3','read'],['sk-reader','a-guha','read'],['sk-reader','a-suepen','read'],
+  ['sk-title','a-richard2','read'],['sk-title','a-guha','read'],
+  ['q-miranda','a-miranda1','read'],['q-frances','a-frances1','read'],
+  ['arcs','a-richard1','read'],['arcs','a-sean','read'],
+  // stores and outside
+  ['web','a-miranda1','read'],['a-miranda1','db-papers','store'],['a-miranda1','pdfs','store'],['db-papers','a-miranda1','read'],
+  ['db-papers','a-richard1','read'],
+  ['unsplash','faces','store'],['faces','a-frances1','read'],
+  ['writing','db-voices','store'],['db-voices','a-richard2','read'],['db-voices','a-richard3','read'],['db-voices','a-suepen','read'],
+];
+const sheet = document.getElementById('sheet'), svg = document.getElementById('wires');
+const NS = 'http://www.w3.org/2000/svg';
+let paths = [];
+
+function box(id){
+  const el = document.getElementById(id), s = sheet.getBoundingClientRect(), r = el.getBoundingClientRect();
+  return {l:r.left-s.left, r:r.right-s.left, t:r.top-s.top, b:r.bottom-s.top, cx:(r.left+r.right)/2-s.left, cy:(r.top+r.bottom)/2-s.top};
+}
+function route(a,b){
+  const A = box(a), B = box(b);
+  const dx = B.cx - A.cx, dy = B.cy - A.cy;
+  const sideways = (A.r < B.l - 10) || (B.r < A.l - 10);
+  if (sideways){
+    const x1 = dx > 0 ? A.r : A.l, x2 = dx > 0 ? B.l - 3 : B.r + 3;
+    const k = Math.max(40, Math.abs(x2 - x1) * .45) * (dx > 0 ? 1 : -1);
+    return `M${x1},${A.cy} C${x1+k},${A.cy} ${x2-k},${B.cy} ${x2},${B.cy}`;
+  }
+  const down = dy >= 0;
+  const y1 = down ? A.b : A.t, y2 = down ? B.t - 3 : B.b + 3;
+  const k = Math.max(18, Math.abs(y2 - y1) * .5) * (down ? 1 : -1);
+  return `M${A.cx},${y1} C${A.cx},${y1+k} ${B.cx},${y2-k} ${B.cx},${y2}`;
+}
+function draw(){
+  svg.innerHTML = `<defs>
+    <marker id="m-flow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="var(--ink)" stroke-width="1.6"/></marker>
+    <marker id="m-read" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="var(--line)" stroke-width="1.6"/></marker>
+    <marker id="m-store" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="var(--pencil)" stroke-width="1.6"/></marker></defs>`;
+  paths = E.map(([a,b,k]) => {
+    const p = document.createElementNS(NS,'path');
+    p.setAttribute('d', route(a,b)); p.setAttribute('class','e '+k); p.setAttribute('marker-end',`url(#m-${k})`);
+    p.dataset.a = a; p.dataset.b = b; svg.appendChild(p); return p;
+  });
+  if (sel) trace(sel, true);
+}
+let sel = null;
+function trace(id, keep){
+  if (!keep && sel === id){ clear(); return; }
+  sel = id; sheet.classList.add('tracing');
+  sheet.querySelectorAll('.n').forEach(n => n.classList.remove('lit','sel'));
+  document.getElementById(id).classList.add('sel');
+  paths.forEach(p => {
+    const on = p.dataset.a === id || p.dataset.b === id;
+    p.classList.toggle('on', on);
+    if (on){ document.getElementById(p.dataset.a).classList.add('lit'); document.getElementById(p.dataset.b).classList.add('lit'); }
+  });
+}
+function clear(){ sel = null; sheet.classList.remove('tracing'); sheet.querySelectorAll('.n').forEach(n => n.classList.remove('lit','sel')); paths.forEach(p => p.classList.remove('on')); }
+sheet.addEventListener('click', e => { const n = e.target.closest('.n'); if (n && n.id) trace(n.id); else clear(); });
+addEventListener('resize', draw);
+(document.fonts ? document.fonts.ready : Promise.resolve()).then(draw);
+draw();
+</script>
