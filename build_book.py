@@ -123,7 +123,42 @@ def build_pdf(chapters, updated) -> bool:
              "--virtual-time-budget=10000", f"--print-to-pdf={out}", "--no-pdf-header-footer", str(src)],
             check=True, capture_output=True,
         )
+    set_outline(out, chapters)
     return True
+
+
+def set_outline(pdf: Path, chapters) -> None:
+    """Replace any bookmarks Chrome made with one per story: Contents, each title, Colophon."""
+    try:
+        import pymupdf
+    except ImportError:
+        print("Bookmarks skipped: pip install pymupdf to add them.")
+        return
+    doc = pymupdf.open(str(pdf))
+    pages = [doc[i].get_text().lower() for i in range(doc.page_count)]
+
+    def first_page(marker, start=0):
+        for i in range(start, len(pages)):
+            if marker in pages[i]:
+                return i
+        return None
+
+    toc, at = [], first_page("contents")
+    if at is not None:
+        toc.append([1, "Contents", at + 1])
+    for n, c in enumerate(chapters, 1):
+        p = first_page(f"chapter {n}\n", (at or 0) + 1)
+        if p is not None:
+            toc.append([1, c["title"], p + 1])
+            at = p
+    col = first_page("colophon", (at or 0) + 1)
+    if col is not None:
+        toc.append([1, "Colophon", col + 1])
+    doc.set_toc(toc)
+    tmp = pdf.with_suffix(".tmp.pdf")
+    doc.save(str(tmp), garbage=3, deflate=True)
+    doc.close()
+    tmp.replace(pdf)
 
 
 def main() -> None:

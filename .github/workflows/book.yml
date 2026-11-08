@@ -31,6 +31,8 @@ jobs:
           python-version: "3.11"
       - name: Install pandoc
         run: sudo apt-get update && sudo apt-get install -y pandoc
+      - name: Install PyMuPDF (for the PDF's bookmarks)
+        run: pip install pymupdf==1.26.7
       - name: Build the website and the PDF
         run: python build_book.py
       - uses: actions/configure-pages@v5

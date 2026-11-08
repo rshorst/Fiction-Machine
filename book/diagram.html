@@ -84,6 +84,22 @@ path.e.store{stroke:var(--pencil);opacity:.6}
 .note div{min-width:0}
 .note h4{margin:0 0 .25rem;font-family:var(--serif);font-weight:500;font-size:1.05rem}
 .note p{margin:0;font-size:.85rem;color:var(--muted)}
+@media (max-width:900px){
+  .scroller{overflow-x:visible}
+  .sheet{width:auto;grid-template-columns:1fr;gap:2.4rem;padding-top:.4rem}
+  .flow{order:1}
+  .sheet>.rail:first-of-type{order:2}
+  .sheet>.rail:last-of-type{order:3}
+  .rail{display:grid;grid-template-columns:repeat(auto-fill,minmax(10.5rem,1fr));gap:.55rem}
+  .rail h3,.rail .gap{grid-column:1 / -1}
+  .rail .gap{display:none}
+  .row{grid-template-columns:1fr;gap:22px}
+  .quad{grid-template-columns:1fr 1fr;gap:26px 12px;padding-top:1.4rem}
+  .quad .col{gap:22px}
+  .sheet:not(.tracing) path.e.read,.sheet:not(.tracing) path.e.store{display:none}
+  .hint .wide{display:none}
+}
+@media (max-width:420px){.quad{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.n,path.e{transition:none}}
 </style>
 
@@ -100,7 +116,7 @@ path.e.store{stroke:var(--pencil);opacity:.6}
       <span><i class="sw read"></i>Reads</span>
       <span><i class="sw dep"></i>Deposits into a store</span>
     </div>
-    <p class="hint"><b>Tap any box</b> to trace what it reads and writes. Tap again, or tap the background, to clear. On a phone, scroll the sheet sideways.</p>
+    <p class="hint"><b>Tap any box</b> to trace what it reads and writes. Tap again, or tap the background, to clear.<span class="narrow-note"> On a phone, the reading lines appear when you tap a box.</span></p>
   </header>
 
   <div class="scroller">
