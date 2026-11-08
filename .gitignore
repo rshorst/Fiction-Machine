@@ -1,0 +1,32 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Rebuilt locally
+chromadb/
+outputs/
+__pycache__/
+*.pyc
+venv*/
+.venv/
+
+# Not ours to redistribute: arXiv PDFs Miranda downloads, Unsplash photos
+miranda_papers/
+faces/images/
+faces/manifest*.json
+vault/stories/*/faces/
+vault/theory/deposits/
+vault/stories/*/theory_deposits/
+vault/stories/*/_checkpoint/
+vault/stories/*/_archive/
+
+# Generated during runs
+vault/inventory/corpus.md
+vault/annotations/
+
+# Local tooling
+.DS_Store
+.claude/
+vault/.obsidian/workspace*.json
+*.pptx

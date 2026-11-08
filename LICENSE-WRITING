@@ -1,0 +1,23 @@
+The writing in this repository is © 2026 Rachel Horst and licensed under the
+Creative Commons Attribution-NonCommercial 4.0 International licence
+(CC BY-NC 4.0).
+
+Full legal text: https://creativecommons.org/licenses/by-nc/4.0/legalcode
+Summary: https://creativecommons.org/licenses/by-nc/4.0/
+
+You may share and adapt it for non-commercial purposes, as long as you credit
+Rachel Horst, link to the licence, and indicate if changes were made.
+
+This covers:
+- the instruction and prompt files in skills/ and vault/agents/
+- everything else in vault/: the stories (drafts, characters, plots,
+  annotations, letters, PDFs), the character archive, the process notes and
+  the bibliographies
+- ARCHITECTURE.md and README.md
+
+The code (Python files and requirements.txt) is under the MIT licence; see
+LICENSE.
+
+Third-party material is not covered by either licence: papers and photographs
+named in the bibliographies and credits belong to their authors and
+photographers.

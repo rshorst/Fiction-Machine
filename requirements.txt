@@ -1,0 +1,20 @@
+# Fiction Machine (unslop.) — Python 3.11
+# Pinned to the versions the machine was built and run on (April–May 2026),
+# except chromadb, litellm and transformers: the original setup had upgraded
+# these past what CrewAI 1.9.3 allows, so they are pinned to the newest
+# versions CrewAI 1.9.3 accepts. That makes a fresh install possible.
+crewai==1.9.3
+anthropic==0.73.0
+litellm==1.75.3
+chromadb==1.1.1
+sentence-transformers==5.2.3
+transformers==4.46.3
+torch==2.10.0
+onnxruntime==1.24.2
+pymupdf==1.26.7
+python-docx==1.2.0
+pillow==12.1.1
+requests==2.32.5
+ddgs==9.14.1
+pydantic==2.11.10
+tenacity==9.1.4

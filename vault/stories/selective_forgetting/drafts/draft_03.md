@@ -1,0 +1,129 @@
+# The Hand That Will Not Lift
+
+The contract was signed in March. Margit had recommended it. She had recommended it in writing, with footnotes, three of them flagging her own reservations, which she had then in person walked the board through with the precision she reserved for things she wanted to be on the record as having said. The reservations were noted. The recommendation was adopted. The vendor representative — a woman named Carla, who had flown in from Minneapolis — shook her hand and said, *We're going to do right by you, Margit*, and Margit corrected the pronunciation without smiling.
+
+By June the ingestion was running. The first phase was the McCarthy-era papers, which Margit knew the way she knew the fourteen drawers along the basement's east wall: by the small resistance each one gave the heel of her hand when she pulled it. There was a misfiled letter from a metallurgist in Racine that had been sitting in the wrong folder since 1956 and that she had moved, twice, in twenty-two years, from drawer to drawer when she was reorganizing — never to its correct home, because its correct home would have placed it next to a name that the metallurgist's widow, who was still alive in a duplex outside Janesville, had asked the archive to forget. The widow's request was not on file. It was on Margit. She had carried it in her hands.
+
+The vendor's system found the letter on the third day of ingestion. It surfaced cleanly in a sample query the engineers ran to verify retrieval. Carla emailed Margit a screenshot. *Look what your archive can do now.* Margit looked at the screenshot through the afternoon and into the part of the day where the radiator started up again. Then she went down to the basement and opened the drawer the letter had been in for six years, and the letter was still there, physically, paper, where she had put it. The system had not moved it. It had only found it.
+
+She put the letter in a different drawer.
+
+She did not call this misfiling. She called it, in her head, *not yet*. She thought she would put it back when she had thought about it more. She did not put it back. By the end of June there were nine letters in drawers that were not theirs, and she had begun to do other things — small things, almost involuntary, a permit slipped into a folder of recipes the regional historical society had donated in 1981, a list of 1953 zoning variances tucked behind the parish bulletins from St. Bernard's. Her hands were ahead of her thinking. She found she did not want to catch up.
+
+In July she stopped touching the paper.
+
+She did not stop all at once. She had been spending more time at the terminal because the system needed her — needed her judgments, in the form of accept-or-reject buttons on flagged ambiguities. *Is this person the same as this person.* *Should this letter be tagged with this name.* The buttons were green and red. She got fast at them. There was a small chime when she cleared a hundred. The chime was pleasant. She caught herself listening for it.
+
+By the second week of July she was clicking through queries without going downstairs. By the third week she had not been in the basement in five days. On Friday of the fourth week she went down because she wanted to put away a packet that had come in that morning over the transom — manila, taped at the corner with masking tape that was yellow at the edges, addressed in pencil to *The Archive, Marquette, please* — a donation of letters from a woman named Helen Vorhees who had taught at the Indian boarding school in Tomah from 1948 to 1953. She went down with the packet under her arm and stood in front of the drawers and her hand moved toward the drawer for *Education, Federal, 1940-1960* and she stopped it. She tried to think where else the packet could go. She could think of seven possibilities. Six months earlier she would have known, in her hand, before her mind got there, which one. The hand would have lifted and the drawer would have opened and the packet would have been put away and the day would have continued.
+
+She stood there. Her lower back complained. She put the packet in *Education, Federal, 1940-1960*. She walked back up the stairs. In the elevator she said, out loud, to no one, *I do not know what I just did.* The elevator was empty. She was glad of that and also not glad.
+
+At her desk she logged into the system. She queried the packet. The system surfaced it instantly, with a high probability score that the letters were correctly placed in *Education, Federal, 1940-1960*, and adjacencies suggested by the model included three other sets of teacher correspondence and a federal funding ledger from 1951. The adjacencies were correct. The placement was correct. The system had agreed with her.
+
+She thought: *the system has agreed with me.* She thought: *I have agreed with the system.* She could not feel the difference.
+
+In September a Norwegian girl came to the reading room.
+
+She was seventeen, on a semester exchange. She wore a sweatshirt that said NYC 1998 and the cuffs of it were chewed. Her name was Elin. She had a notebook in which she wrote in English and a phone she did not put away when she came up to the desk; she set it face down on the wood and the case was a hard plastic shell with a sticker on it that had been picked at until only the gum remained. She was researching the path of her grandmother, who had emigrated through Duluth in 1958. Margit, who had been Duluth before she was Madison, asked her grandmother's name. The girl said it. Margit did not recognize it. There was no reason she should have. The girl thanked her and went to the terminal.
+
+Margit watched her, on and off, for an hour. The girl typed slowly. She read what came back slowly. She wrote in the notebook. At one point she pulled, from under the sweatshirt, a chain with a small ring on it — a thin gold band, a woman's, too small for any of her fingers — and she put the ring in her mouth, briefly, the way some people put a pen, and took it out and tucked it back. She did not know she was being watched. The ring was wet at the edge of her collar after.
+
+Around three the girl came to Margit's desk and asked, in careful English, whether the system could find a record of a hearing. She said the date — March 1962 — and a name. The name was her grandmother's sister, who had come over a year later. Margit waited for her to say more and she did not. *I would like to know if there is a record*, Elin said. She had practised the sentence; it came out as one word.
+
+Margit said: *Let me check.* She typed the name into the terminal. The system surfaced a 1962 affidavit from a hearing about the disposition of children of unwed mothers in Dane County. It was in *Family Court, Dane County, 1960-1965*, exactly where it belonged, and the cross-reference protocol — which Margit herself had approved in March, with a footnote — automatically generated a notification to the listed descendants of all parties named in the document, informing them that a researcher had accessed the record. The notification was generated at 3:14 p.m. The girl's name was logged as the requesting researcher. The institution field auto-populated with *Marquette University Archive, on-site terminal.*
+
+Margit watched the notification compile. She watched the system's progress bar. It was a green bar. It moved smoothly across the screen. There was a checkmark when it finished.
+
+She thought of the metallurgist's widow. She thought: *the widow is dead.* She thought: *no, the widow is not dead, she is in Janesville, she is ninety-three.* She thought: *somewhere in Madison, in Tomah, in three other counties, six people whose surnames I do not know are about to receive an email.*
+
+The girl was looking at her. Her hand had gone to the chain at her neck and she was rolling the ring between thumb and forefinger through the cotton of the sweatshirt, slowly, the way a person works a worry stone. Margit said: *There is a record. I can pull the physical document for you tomorrow. You'll need to sign for it.* The girl nodded and said *thank you* and went back to the terminal. Margit went to the bathroom and washed her hands. The water was cold. Her hands were cold. She stood at the sink until someone came in and then she dried her hands on the brown paper that the building bought in bulk and went back to her desk.
+
+She thought, briefly, of calling Carla. She did not. She thought of telling someone — Ruth, in Vancouver, on paper — and she did not. She sat at her desk until five and clicked through ninety-eight ambiguity queries. She got most of them right.
+
+At home she fed the cat. She sat on the back step. It was the warm part of September and the concrete was warm against the back of her thighs and she sat there doing nothing for a while, which was a thing she had started doing this past year and which she was suspicious of. The suspicion had been, originally, that the doing-nothing was the beginning of something — depression, she had thought, or just age. She understood now that it was neither. It was the small pocket of her day in which she had not yet been retrieved.
+
+The Hennessey papers were on her desk on Monday. They had been waiting since spring, the second tranche, the one that contained — among five hundred other things — a letter she had cried over in May. The letter had been written in 1981 by a woman named Eileen Hennessey to her sister Mary, apologizing for an abortion in 1939 that Eileen had performed on Mary in a bathroom in St. Paul and that Mary had nearly died from. Mary had not died from it. Mary had died, of a stroke, in 1976. The letter was written five years too late and never sent and Eileen had kept it in a tin behind her wedding photographs. The tin had come to the archive in 2017 with the rest of the Hennessey estate. Margit had opened the tin in May. She had not put the letter back in the tin. She had put it in a folder marked *Recipes, undated* and shelved the folder in the cookbook donation drawer, where no one had any reason to go, and she had cried at her desk and gone home and not told anyone.
+
+The folder was on her desk now because Janet, the new assistant, doing routine pre-ingestion verification, had noticed that *Recipes, undated* contained an item that did not appear to be a recipe. Janet had flagged it and pulled it. The letter was on top of the folder. The folder was on Margit's desk. Janet had left a note on a yellow Post-it, written in ballpoint, the *t*'s crossed long. *Margit — found this in the cookbooks. Misfile? Want me to put it where it belongs?*
+
+Margit looked at the note for a long time. She thought of the words *where it belongs*. She thought of a system of belonging that had a place for this letter. She tried to summon the conviction, which she had had in May, that the letter belonged in the cookbook drawer because Eileen had kept it in a tin behind her wedding photographs and because Eileen had not wanted, ever, for it to be read by anyone who was not her sister, who was dead, and who therefore would never read it. She tried to summon the practice. She tried to summon the hand that had put the letter into *Recipes, undated*.
+
+Her hand was on the desk. It did not move.
+
+She picked up the letter. She read the first paragraph. She had read it before. It had not changed. What had changed was that she could now see, through the paper, the green progress bar. She could see the checkmark. She could see the email going out to whatever niece or great-nephew of Mary Hennessey was on the contact list, and she could see them opening it on a Tuesday in November and being told that a researcher from Marquette had accessed their great-aunt's correspondence.
+
+She picked up Janet's note. She wrote underneath it, in her small careful hand: *Thank you, Janet. Please re-file in Hennessey, Box 14, correspondence 1979-1983. Margit.*
+
+She put the note on top of the letter. She put the letter back in the folder. She put the folder in Janet's tray. She walked down the hall to the bathroom and stood at the sink and did not cry. She had become a person to whom the Hennessey letter was a record.
+
+She walked back to her desk. Janet was at her own desk, two rooms over. Margit could hear her typing. The typing had the cadence of someone who had learned on a phone first and a keyboard second; the spaces between the keys were uneven in a way that was, to Margit, the exact age of the next person who would do this work.
+
+She thought of her father, in Duluth, ninety-one. She thought of the story she had told him about Peter — the Oregon job, the girlfriend, the not-good-at-calling. She thought of the Tuesdays for thirty-three years on which she had held that story together by hand, by the hand that had also misfiled the metallurgist's letter, by the hand that had put Eileen Hennessey in with the recipes. Her father had lived in the empty drawer for thirty-three years and called her every Sunday at four to ask if she was eating enough.
+
+She picked up the phone. It was Tuesday, 4:11 p.m. He would be having his coffee. He would be surprised to hear from her on a Tuesday. He would worry that something was wrong. She put the phone down.
+
+She picked it up again. She put it down again.
+
+She thought: *the hand will not lift.*
+
+She walked, that evening, past her own street and three streets further, to the church on Williamson. It was open. There was no one inside. She had not been in this church before, in twenty-six years in Madison, although she had walked past it most weeks for most of those years. There was a rack of candles in red glass holders to the left of the altar. There was a metal box for offerings with a slot in the top and a small handwritten card taped beside it that said *$2 suggested.* She did not put anything in the box. She did not light a candle. She sat in the second pew from the back and put her hands flat on her thighs and waited.
+
+What she had expected, she understood after a few minutes, was that something in the room would do something to her. The room was not doing the work. The room was a room. The pew was hard at the back of her thighs. The candles were unlit and the box was empty and a fly was on the floor near the door, walking the seam of the carpet.
+
+The church got darker. No one came in. No one turned on a light. At some point she became aware that she was hungry, and that her father was probably already in bed in Duluth, and that the girl Elin would be at her terminal in the morning, and that the email about the 1962 affidavit had been received by six people whose names Margit did not know, and that one of them had probably already opened it, and that whatever the consequence of that opening would be was now in motion and could not be stopped by anything Margit did or did not do at this particular moment in this particular church.
+
+She sat there a while longer. She did not light the candle. She was not sure who the candle would have been for. She thought it might have been for the version of her hand that had known, in May, where the Eileen Hennessey letter belonged. That hand was not coming back.
+
+She got up. Her lower back complained. She walked home along Williamson. The sidewalk was dry.
+
+At home she fed the cat. She did not eat. She sat at her kitchen table and opened her laptop and typed a query into the archive system, from her home credentials, which were valid, which she herself had set up. She typed her brother's name. *Peter Halloran.* She added the year, 1991, and the place, Bemidji.
+
+The system returned three results. A police incident report. A coroner's note. A small clipping from the *Bemidji Pioneer*, four lines, no photograph. The clipping had been digitized in the second wave of regional newspaper ingestion in August. She had approved that ingestion in July, with a footnote about access controls she had then not enforced because the footnote had felt, at the time, fussy.
+
+The progress bar had been green. The checkmark had appeared. The clipping was on her screen now, in her kitchen, in Madison, on a Tuesday in September, and her father was asleep in Duluth in a room with a window that faced the lake, and somewhere in a server farm in Iowa a model that had been finetuned on the Halloran surname for the past four months understood that Peter Halloran had died in a motel in Bemidji on the eighth of November, 1991, and would surface this information to anyone who asked, including, eventually, her father, if her father ever learned to ask, which he had been spared learning by her, by her hand, for thirty-three years.
+
+She closed the laptop.
+
+The cat was on the chair. The cat was looking at her. She said, out loud: *I do not know what I just did.*
+
+She sat at the table with her hands flat on the wood on either side of the closed laptop. The wood was cool. The laptop was warm at the hinge. She could feel the difference between the two temperatures along the inside of her wrists where the skin was thin. She thought: *the query was logged.* She thought: *the query was logged from my home credentials at*— she looked at the clock on the stove —*9:47 p.m.* She thought of the audit log, which she had also designed, which retained queries for seven years per the records retention policy she had drafted in February. She thought of the fact that the audit log was itself ingested.
+
+The phone rang.
+
+It was the landline, which almost no one used. It rang twice before she registered that it was ringing. She did not move. The cat looked at the phone and then at her. The phone rang a third time and a fourth and on the fifth ring the answering machine — which was older than the cat, older than the cat's mother — picked up, and her own voice said the short message she had recorded in 2004 and never updated, *You've reached Margit, please leave a message,* and then there was the beep, and then there was her father's voice.
+
+*Margit, it's Dad. I had a thing happen, I'm okay, Linda from across the way is here, I just— I wanted to hear your voice. Call me when you get this. It's nothing, it's nothing serious. Call me.*
+
+The machine clicked off. The red light began to blink.
+
+She sat with her hands on the table. Her father had not called her on a Tuesday in thirty-three years. He called her on Sundays at four. He had called on a Tuesday in 1991, on the ninth of November, the morning after, to tell her that Peter had been found, and she had taken the call at her desk in Duluth, in the building she had worked in before she came to Madison, and she had said the thing she said and then she had told him, four days later, sitting at his kitchen table, that Peter had been doing well in Oregon, that he had a job, that he had a girlfriend, that he was not good at calling. She had said this on the Wednesday after the funeral they did not have because there was nothing to bury that her father wanted to see, and she had said it because her father had asked her to tell him about Peter's life and she had understood, in the moment of being asked, that he meant the life Peter would have had if he had not done what he had done, and that she could give him that life, and that giving it to him was the only thing she had to give. She had given it to him for thirty-three years on Sundays at four.
+
+The red light blinked. She looked at it.
+
+She thought: *he has called on a Tuesday.* She thought: *he is alive and he has called on a Tuesday and he says it is nothing.* She thought: *if I call him back tonight he will tell me what it is and I will tell him about Peter and the order will be: his thing first, then mine. If I do not call him back tonight he will go to sleep believing I did not get the message and he will call me on Sunday at four and I will have until Sunday at four to decide.*
+
+She did not pick up the phone.
+
+She watched the red light. The blink had a rhythm her hand recognized before her mind did — the same rhythm as the chime on the ambiguity queries, two-on, two-off, the little pulse the system used when it wanted her attention without insisting. She found her finger, the index finger of her right hand, tapping the wood of the table in time with the light. She made it stop. It started again.
+
+She got up. She went to the sink and ran the tap and put her hands under the water and the water was cold and her hands were cold and the temperature of the water and the temperature of her hands were close enough that for a moment she could not tell which was which. She turned off the tap. She did not dry her hands. She went back to the table and sat down with her hands wet on the wood and the wet made two dark prints around the laptop. She watched the prints fade at the edges as the water went into the wood.
+
+The cat got down off the chair and went to her bowl and looked into it and looked at Margit and went back to the chair. The bowl was full. The cat had eaten from it twenty minutes ago.
+
+She thought of Elin, in whatever room she was in, in the house of whatever family was hosting her, with the chain around her neck and the ring on the chain. She thought of the ring. She had not asked whose ring it was. The ring had been a specific size, a specific weight, a specific gold; it had belonged to a specific finger that was no longer there to wear it. Elin had decided something she was not going to tell anyone. Margit had decided something she was not going to tell anyone for thirty-three years. The shape of the deciding was the same shape and the system did not care about the shape; the system cared about the names and the dates and the cross-references and the listed descendants, and the listed descendants of Peter Halloran were a father in Duluth and a sister in Madison and the sister had just queried the brother from the sister's home credentials at 9:47 p.m. on a Tuesday in September and the query was logged and the log was ingested and the model understood what the sister had done.
+
+The phone did not ring again.
+
+She put her forehead down on the cool wood of the table next to the warm hinge of the laptop and she stayed there. The red light blinked at the edge of her vision through the gap between her arm and her face. She was not crying. She was not going to cry. She was waiting to find out what kind of person she was now, and she understood, with her forehead on the table, that finding out was not going to be a thing that happened in a moment; it was going to be a thing that happened by accumulation, the way the misfilings had happened, the way the practice had gone — small acts, almost involuntary, over weeks, and then one day she would notice that her hand had been doing something for a while that she had not given it permission to do, and she would not be able to remember when it had started.
+
+She lifted her head. She picked up the phone. She dialled the first three digits of her father's number and she stopped and she put the phone down.
+
+She thought: *the hand will lift.* She thought: *the hand will lift and I do not yet know what it will lift toward.*
+
+The cat was asleep on the chair. The radiator had not yet started for the season. The red light blinked. Outside, on Williamson, a car went by with its window down and a piece of music she did not recognize came in through the kitchen window and went out again, and the kitchen was quiet, and her hands were cold on the table on either side of the closed laptop, and she sat.
+
+---
+System: unslop.  
+Designed by: Rachel Horst (April 2026)  
+Models: claude-opus-4-7  
+Seed: The custodian of a regional archive is told the AI will preserve everything. She begins, quietly, to misfile documents — testing what counts as preservation when nothing can be lost.
