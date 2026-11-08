@@ -4,6 +4,7 @@ Build the book from book/chapters/ into site/:
 
     site/index.html               the book to read online
     site/diagram.html             how the machine works
+    site/contribute.html          how to run the machine and add a chapter
     site/warm-prior.pdf           the whole book, free to download
 
 Needs pandoc, and Chrome or Chromium for the PDF. GitHub runs this after
@@ -71,6 +72,32 @@ def build_site(chapters, updated) -> None:
     (SITE / "index.html").write_text(page(t), encoding="utf-8")
     (SITE / "diagram.html").write_text(page((BOOK / "diagram.html").read_text(encoding="utf-8")), encoding="utf-8")
     (SITE / ".nojekyll").write_text("")
+
+
+CONTRIBUTE_SECTIONS = ["What it costs", "Setup", "Run it", "Where the output lands",
+                       "Faces and Unsplash", "Add your story to the book", "Licence"]
+
+
+def build_contribute() -> None:
+    """contribute.html: the README's steps for running the machine and adding a chapter."""
+    import re
+    readme = (bt.ROOT / "README.md").read_text(encoding="utf-8")
+    sections = dict(re.findall(r"^## (.+?)\n(.*?)(?=^## |\Z)", readme, re.S | re.M))
+    missing = [h for h in CONTRIBUTE_SECTIONS if h not in sections]
+    if missing:
+        sys.exit(f"README.md is missing sections used by contribute.html: {', '.join(missing)}")
+    md = "\n\n".join(f"## {h}\n\n{sections[h].strip()}" for h in CONTRIBUTE_SECTIONS)
+    body = subprocess.run(["pandoc", "-f", "gfm", "-t", "html5", "--wrap=none", "--no-highlight"],
+                          input=md, capture_output=True, text=True, check=True).stdout
+    # Links that point at files in the repo go to GitHub; tables scroll on small screens.
+    body = re.sub(r'href="(?!https?:|#|mailto:)([^"]+)"', lambda m: f'href="{REPO}/blob/main/{m.group(1)}"', body)
+    body = body.replace("<table>", '<div class="table-wrap"><table>').replace("</table>", "</table></div>")
+    t = (BOOK / "templates" / "page.html").read_text(encoding="utf-8")
+    t = (t.replace("__TITLE__", "How to add a chapter")
+          .replace("__LEDE__", "Run the machine on a seed of your own, then send your finished story in. "
+                               "Rachel Horst reads every chapter before it joins the book.")
+          .replace("__BODY__", body).replace("__REPO__", REPO))
+    (SITE / "contribute.html").write_text(page(t), encoding="utf-8")
 
 
 def build_pdf(chapters, updated) -> bool:
@@ -174,6 +201,7 @@ def main() -> None:
     SITE.mkdir(exist_ok=True)
     updated = max(c.get("added", c["made"]) for c in chapters)
     build_site(chapters, updated)
+    build_contribute()
     made_pdf = build_pdf(chapters, updated)
     print(f"Built {len(chapters)} chapters into {SITE}/" + (f" with {PDF_NAME}" if made_pdf else " (no PDF)"))
 

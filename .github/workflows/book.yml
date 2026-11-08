@@ -9,6 +9,7 @@ on:
       - "book/**"
       - "build_book.py"
       - "book_tools.py"
+      - "README.md"
       - ".github/workflows/book.yml"
   workflow_dispatch:
 
