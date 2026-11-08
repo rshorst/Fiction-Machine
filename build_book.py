@@ -87,7 +87,7 @@ def build_pdf(chapters, updated) -> bool:
         '<section class="toc"><h2>Contents</h2><ol>'
         + "".join(
             f'<li><span class="n">{i:02d}</span><span><span class="t">{e(c["title"])}</span>'
-            f'<span class="r">Run by {e(c["run_by"])} · {e(long_date(c["made"]))}</span></span></li>'
+            f'<span class="r">{e(long_date(c["made"]))}</span></span></li>'
             for i, c in enumerate(chapters, 1)
         )
         + "</ol></section>",
